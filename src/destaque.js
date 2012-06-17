@@ -133,6 +133,10 @@
         params.slideSum = element.find(this.params.itemSelector).length;
         params.elementDirection = params.slideDirection === "toLeft" ? "fromLeft" : "toLeft";
 
+        if (prams.currentSlide < 0 || params.currentSlide >= params.slideSum) {
+          params.currentSlide = 0;
+        }
+
         this._initSlide();
 
         params.inited = false;
