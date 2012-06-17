@@ -133,7 +133,7 @@
         params.slideSum = element.find(this.params.itemSelector).length;
         params.elementDirection = params.slideDirection === "toLeft" ? "fromLeft" : "toLeft";
 
-        if (prams.currentSlide < 0 || params.currentSlide >= params.slideSum) {
+        if (params.currentSlide < 0 || params.currentSlide >= params.slideSum) {
           params.currentSlide = 0;
         }
 
@@ -245,30 +245,21 @@
       var self = this;
       var params = this.params;
 
-      var current = this.element.find(params.itemSelector + "." + params.activeItemClass);
-      var next = null;
       var outPosition = 0;
-      var pos = 0;
+      var current = this._currentSlide();
+      var next = this._nextSlide();
 
       params.animating = true;
 
       if (params.slideDirection === "toLeft") {
         outPosition = -params.slideMovement;
-        next = this.element.find(params.itemSelector).eq(params.currentSlide < this.element.find(params.itemSelector).length - 1 ? params.currentSlide + 1 : 0);
-
-        if (next.length) {
-          next.css({left: params.baseSize, zIndex: params.itemDefaultZIndex + 1}).show();
-        }
+        next.css({left: params.baseSize, zIndex: params.itemDefaultZIndex + 1}).show();
       } else {
         outPosition = params.slideMovement;
-        next = this.element.find(params.itemSelector).eq(params.currentSlide < 1 ? this.element.find(params.itemSelector).length - 1 : params.currentSlide - 1);
-
-        if (next.length) {
-          next.css({left: -params.baseSize, zIndex: params.itemDefaultZIndex + 1}).show();
-        }
+        next.css({left: -params.baseSize, zIndex: params.itemDefaultZIndex + 1}).show();
       }
 
-      next.stop().animate({left: pos}, params.slideSpeed, params.easingType, function() {
+      next.stop().animate({left: current.css("left")}, params.slideSpeed, params.easingType, function() {
         next.addClass(params.activeItemClass);
       });
 
@@ -294,7 +285,7 @@
       return this.element.find(params.itemSelector).eq(params.currentSlide);
     },
 
-    _previousSlide: function() {
+    _previousPage: function() {
       var params = this.params;
 
       if (params.slideDirection === "toLeft") {
@@ -304,34 +295,39 @@
           return this.element.find(params.itemSelector).length - 1;
         }
       } else {
+        if (params.currentSlide < params.slideSum - 1) {
+          return params.currentSlide + 1;
+        } else {
+          return 0;
+        }
+      }
+    },
+
+    _nextPage: function(idx) {
+      var params = this.params;
+
+      if (params.slideDirection === "toLeft") {
         if (params.currentSlide < this.element.find(params.itemSelector).length - 1) {
           return params.currentSlide + 1;
         } else {
           return 0;
+        }
+      } else {
+        if (params.currentSlide > 0) {
+          return params.currentSlide - 1;
+        } else {
+          return this.element.find(params.itemSelector).length - 1;
         }
       }
     },
 
     _nextSlide: function() {
       var params = this.params;
-
-      if (params.slideDirection === "toLeft") {
-        if (params.currentSlide < this.element.find(params.itemSelector).length - 1) {
-          return params.currentSlide + 1;
-        } else {
-          return 0;
-        }
-      } else {
-        if (params.currentSlide > 0) {
-          return params.currentSlide - 1;
-        } else {
-          return this.element.find(params.itemSelector).length - 1;
-        }
-      }
+      return this.element.find(params.itemSelector).eq(this._nextPage());
     },
 
     _updateCurrentSlide: function() {
-      this.params.currentSlide = this._nextSlide();
+      this.params.currentSlide = this._nextPage();
 
       this._loadSlide();
       this._slideElementsIn();
@@ -343,8 +339,8 @@
 
       var slidesIdx = [
         params.currentSlide,
-        this._previousSlide(),
-        this._nextSlide()
+        this._previousPage(),
+        this._nextPage()
       ];
 
       for (var i = 0; i < slidesIdx.length; i++) {
@@ -363,7 +359,7 @@
       var self = this;
       var params = this.params;
 
-      var current = this.element.find(params.itemSelector).eq(params.currentSlide);
+      var current = this._currentSlide();
       var elementNum = current.find(params.itemForegroundElementSelector).length;
 
       this._setElementPositions();
