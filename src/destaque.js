@@ -25,16 +25,16 @@
     onResize: function (slideshow) {},
     onPause: function(slideshow) {},
     onResume: function(slideshow) {},
-    onPageUpdate: function(slideshow, pageData) {},
-    onSlideLoad: function(slideshow, element) {},
-    beforePageUpdate: function(slideshow, pageData) {}
+    onSlideLoad: function(slideshow, item, idx) {},
+    beforePageUpdate: function(slideshow, pageData) {},
+    onPageUpdate: function(slideshow, pageData) {}
   };
 
   var Destaque = function (element, params) {
     this.element = $(element);
     this.params = params;
 
-    this.params.inited = true
+    this.params.initialized = false;
     this.params.mouseOver = false;
     this.params.animating = false;
 
@@ -128,7 +128,7 @@
       var element = this.element;
       var params = this.params;
 
-      if (params.inited) {
+      if (!params.initialized) {
         params.baseSize = element.width();
         params.slideSum = element.find(this.params.itemSelector).length;
         params.elementDirection = params.slideDirection === "toLeft" ? "fromLeft" : "toLeft";
@@ -139,7 +139,7 @@
 
         this._initSlide();
 
-        params.inited = false;
+        params.initialized = true;
       }
     },
 
@@ -273,8 +273,8 @@
     _updatePagers: function(callback) {
       var params = this.params;
       var data = {
-        currentPage: params.currentSlide,
-        totalPages:  params.slideSum
+        currentSlide: params.currentSlide,
+        totalSlides:  params.slideSum
       };
 
       return params[callback](this, data);
@@ -343,13 +343,14 @@
         this._nextPage()
       ];
 
-      for (var i = 0; i < slidesIdx.length; i++) {
-        this.element.find(params.itemSelector).eq(slidesIdx[i]).each(function(i) {
-          if (!$(this).hasClass(params.itemLoadedClass)) {
-            var element = $(this);
+      var i, idx;
+      for (i = 0; i < slidesIdx.length; i++) {
+        idx = slidesIdx[i];
 
-            element.addClass(params.itemLoadedClass);
-            params.onSlideLoad(self, element);
+        this.element.find(params.itemSelector).eq(idx).each(function() {
+          if (!$(this).hasClass(params.itemLoadedClass)) {
+            $(this).addClass(params.itemLoadedClass);
+            params.onSlideLoad(self, this, idx);
           }
         });
       }
@@ -366,7 +367,7 @@
 
       current.each(function() {
         $(this).find(params.itemForegroundElementSelector).each(function(i) {
-          if (params.inited) {
+          if (!params.initialized) {
             $(this).css({left: $(this).data("xPos"), top: $(this).data("yPos")});
 
             if (elementNum - 1 === i && !params.mouseOver && params.slideSum > 1) {
