@@ -1,0 +1,94 @@
+body {
+  background-color: #eee;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+p {
+  margin: 10px 0;
+}
+
+a, a:hover {
+  text-decoration: none;
+}
+
+#slide-container {
+  background-color: #fff;
+  border: 1px solid #000;
+}
+
+.item a {
+  display: block;
+  width: 960px;
+  height: 540px;
+}
+
+.item.first {
+  background: url(../img/aline.jpg) no-repeat;
+}
+
+.item.second {
+  background: url(../img/monique.jpg) no-repeat;
+}
+
+.item.third {
+  background: url(../img/luciane.jpg) no-repeat;
+}
+
+.item.fourth {
+  background: url(../img/adriana.jpg) no-repeat;
+}
+
+.item.fifth {
+  background: url(../img/lorena.jpg) no-repeat;
+}
+
+.foreground .element {
+  color: #fff;
+  text-shadow: 1px 1px 2px #000000;
+  width: 500px;
+  position: relative;
+  left: 130px;
+}
+
+.foreground .element.icon {
+  top: 340px;
+  left: 60px;
+  width: 114px;
+  height: 114px;
+  background: transparent url(../img/play.png) no-repeat;
+  background-position: 0 0;
+}
+
+.foreground .overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, transparent), color-stop(80%, rgba(0, 0, 0, 0.8)));
+  background: -webkit-linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.8) 80%);
+  background: -moz-linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.8) 80%);
+  background: -o-linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.8) 80%);
+  background: -ms-linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.8) 80%);
+  background: linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.8) 80%);
+}
+
+.foreground .element.title {
+  text-transform: uppercase;
+  font-size: 40px;
+  top: 280px;
+}
+
+.foreground .element.subtitle {
+  font-size: 17px;
+  top: 300px;
+}
+
+#slide-pagination {
+  text-align: center;
+  font-size: 40px;
+}
+
+#slide-pagination a {
+  color: #00f;
+}

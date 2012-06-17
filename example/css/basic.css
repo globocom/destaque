@@ -1,0 +1,17 @@
+#slide-container {
+  position: relative;
+  overflow: hidden;
+  margin: 30px auto;
+  width: 960px;
+  height: 540px;
+
+}
+
+.item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  width: 100%;
+  height: 100%;
+}
