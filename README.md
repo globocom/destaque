@@ -162,6 +162,7 @@ CSS selector used to find the pagination links.
 * Túlio Ornelas <https://github.com/tulios>
 * Emerson Macedo <https://github.com/emerleite>
 * Alexandre Magno <https://github.com/alexanmtz>
+
 ## License
 
 Copyright (c) 2012 Globo.com - Webmedia. See COPYING for more details.
