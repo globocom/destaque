@@ -92,3 +92,7 @@ a, a:hover {
 #slide-pagination a {
   color: #00f;
 }
+
+.ui-loader {
+  display: none;
+}

@@ -14,6 +14,8 @@ Destaque is a simple slideshow plugin with built-in parallax effect.
 
 * [jQuery](http://jquery.com) 1.7.2
 * [jQuery UI](http://jqueryui.com) 1.8.18
+* [jQuery Mobile Events](https://github.com/jvduf/jquery-mobile-events)
+  (support for swipe gestures. Optional)
 * [jQuery Animate Enhanced](http://playground.benbarnett.net/jquery-animate-enhanced/)
   0.91 (for smoother transitions using CSS3. Optional)
 
