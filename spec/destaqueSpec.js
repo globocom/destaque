@@ -220,12 +220,4 @@ describe("Destaque Slideshow Plugin", function() {
     it("should start automatic slide switching timer", function() {
     });
   });
-
-  xdescribe("Slide pagination", function() {
-    xdescribe("Paginate to left", function() {
-    });
-
-    xdescribe("Paginate to right", function() {
-    });
-  });
 });
