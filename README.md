@@ -14,13 +14,12 @@ Destaque is a simple slideshow plugin with built-in parallax effect.
 
 * [jQuery](http://jquery.com) 1.7.2
 * [jQuery UI](http://jqueryui.com) 1.8.18
+* [jQuery Mobile Events](https://github.com/jvduf/jquery-mobile-events)
+  (support for swipe gestures. Optional)
 * [jQuery Animate Enhanced](http://playground.benbarnett.net/jquery-animate-enhanced/)
   0.91 (for smoother transitions using CSS3. Optional)
 
 ## Usage
-
-A functional demo can be found at the `example` directory, but in a nutshell
-this is how the plugin must be instantiated:
 
 ````javascript
 
@@ -61,9 +60,39 @@ Now the HTML:
 </p>
 ````
 
-### Plugin Options
+### Plugin Initialization
 
-This is a complete list of the supported options:
+#### Callbacks
+
+**onInit**
+
+Called right after the plugin initialization.
+
+**onResize**
+
+Called when the window is resized.
+
+**onPause**
+
+Called after the automatic slide switching is paused.
+
+**onResume**
+
+Called after the automatic slide switching is resumed.
+
+**onSlideLoad**
+
+Called after a slide is loaded.
+
+**beforePageUpdate**
+
+Called before slide pagination.
+
+**onPageUpdate**
+
+Called after slide pagination.
+
+#### Options
 
 **currentSlide** (default: 0)
 
@@ -131,6 +160,7 @@ CSS selector used to find the pagination links.
 * Daniel Martins <https://github.com/danielfm>
 * Túlio Ornelas <https://github.com/tulios>
 * Emerson Macedo <https://github.com/emerleite>
+* Alexandre Magno <https://github.com/alexanmtz>
 
 ## License
 
