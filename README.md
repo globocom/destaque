@@ -61,9 +61,39 @@ Now the HTML:
 </p>
 ````
 
-### Plugin Options
+### Plugin Initialization
 
-This is a complete list of the supported options:
+#### Callbacks
+
+**onInit**
+
+Called right after the plugin initialization.
+
+**onResize**
+
+Called when the window is resized.
+
+**onPause**
+
+Called after the automatic slide switching is paused.
+
+**onResume**
+
+Called after the automatic slide switching is resumed.
+
+**onSlideLoad**
+
+Called after a slide is loaded.
+
+**beforePageUpdate**
+
+Called before slide pagination.
+
+**onPageUpdate**
+
+Called after slide pagination.
+
+#### Options
 
 **currentSlide** (default: 0)
 
@@ -131,7 +161,7 @@ CSS selector used to find the pagination links.
 * Daniel Martins <https://github.com/danielfm>
 * Túlio Ornelas <https://github.com/tulios>
 * Emerson Macedo <https://github.com/emerleite>
-
+* Alexandre Magno <https://github.com/alexanmtz>
 ## License
 
 Copyright (c) 2012 Globo.com - Webmedia. See COPYING for more details.
