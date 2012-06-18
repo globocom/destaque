@@ -21,9 +21,6 @@ Destaque is a simple slideshow plugin with built-in parallax effect.
 
 ## Usage
 
-A functional demo can be found at the `example` directory, but in a nutshell
-this is how the plugin must be instantiated:
-
 ````javascript
 
 $("#slide-container").destaque({
