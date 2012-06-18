@@ -139,7 +139,7 @@ describe("Destaque Slideshow Plugin", function() {
     it('should back to first page on restart', function(){
       $("#slide-pagination a[rel='next']").trigger('click');
       destaque.restart();
-      expect(destaque.params.currentSlide).toBe(1);
+      expect(destaque.params.currentSlide).toBe(0);
     });
     afterEach(function(){
       destaque.restart();
@@ -147,34 +147,50 @@ describe("Destaque Slideshow Plugin", function() {
   });
 
   describe("Event listeners", function() {
-    describe("Control-based pagination listeners", function() {
-      beforeEach(function() {
-        destaque = $("#slide-container").destaque({
-          itemSelector: ".item",
-          itemForegroundElementSelector: ".foreground .element",
-          controlsSelector: '#slide-pagination a'
-        });
-        destaque.pause();
+    beforeEach(function() {
+      destaque = $("#slide-container").destaque({
+        itemSelector: ".item",
+        itemForegroundElementSelector: ".foreground .element",
+        controlsSelector: '#slide-pagination a'
       });
+      destaque.pause();
+    });
+    describe("Control-based pagination listeners", function() {
       it("should go to next page", function(){
         $("#slide-pagination a[rel='next']").trigger('click');
         expect($('.slide-1').hasClass('active')).toBeFalsy;
         expect($('.slide-2').hasClass('active')).toBeTruthy;
-        expect(destaque.params.currentSlide).toBe(2);
+        expect(destaque.params.currentSlide).toBe(1);
       });
       it("should go to previous page", function(){
         $("#slide-pagination a[rel='prev']").trigger('click');
         expect($('.slide-1').hasClass('active')).toBeFalsy;
         expect($('.slide-0').hasClass('active')).toBeTruthy;
-        expect(destaque.params.currentSlide).toBe(0);
-      });
-      afterEach(function(){
-        destaque.restart();
+        expect(destaque.params.currentSlide).toBe(3);
       });
     });
 
     describe("Keyboard-based pagination listeners", function() {
-      // Arrow keys
+      it("should go to next page", function(){
+        var e = jQuery.Event('keydown', {
+          keyCode: 39
+        });
+        destaque.element.focus();
+        destaque.element.trigger(e);
+        expect($('.slide-1').hasClass('active')).toBeFalsy;
+        expect($('.slide-2').hasClass('active')).toBeTruthy;
+        expect(destaque.params.currentSlide).toBe(1);
+      });
+      it("should go to previous page", function(){
+        var e = jQuery.Event('keydown', {
+          keyCode: 37
+        });
+        destaque.element.focus();
+        destaque.element.trigger(e);
+        expect($('.slide-1').hasClass('active')).toBeFalsy;
+        expect($('.slide-0').hasClass('active')).toBeTruthy;
+        expect(destaque.params.currentSlide).toBe(3);
+      });
     });
 
     describe("Gesture-based pagination listeners", function() {
@@ -183,6 +199,9 @@ describe("Destaque Slideshow Plugin", function() {
 
     describe("Window listeners", function() {
       // Resize
+    });
+    afterEach(function(){
+      destaque.restart();
     });
   });
 

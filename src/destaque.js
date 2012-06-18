@@ -202,13 +202,13 @@
     },
     
     restart: function() {
-      var params = this.params;
       
-      if(params.currentSlide !== 1) {
-        for(var i=0; i < params.currentSlide; i++) {
+      if(this.params.currentSlide !== 1) {
+        for(var i=0; i <= this.params.currentSlide; i++) {
           this.slideSetAndMove('toRight');
         }
       }
+      this.params.currentSlide = 0;
     },
 
     slideSetAndMove: function(direction) {
