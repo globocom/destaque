@@ -200,6 +200,16 @@
         params.onResume(this);
       }
     },
+    
+    restart: function() {
+      var params = this.params;
+      
+      if(params.currentSlide !== 1) {
+        for(var i=0; i < params.currentSlide; i++) {
+          this.slideSetAndMove('toRight');
+        }
+      }
+    },
 
     slideSetAndMove: function(direction) {
       var params = this.params;

@@ -126,11 +126,29 @@ describe("Destaque Slideshow Plugin", function() {
   });
 
   // TODO: Pending tests
+  describe("Methods", function(){
+    beforeEach(function() {
+      //jasmine.Clock.useMock();
+      destaque = $("#slide-container").destaque({
+        itemSelector: ".item",
+        itemForegroundElementSelector: ".foreground .element",
+        controlsSelector: '#slide-pagination a'
+      });
+      destaque.pause();
+    });
+    it('should back to first page on restart', function(){
+      $("#slide-pagination a[rel='next']").trigger('click');
+      destaque.restart();
+      expect(destaque.params.currentSlide).toBe(1);
+    });
+    afterEach(function(){
+      destaque.restart();
+    });
+  });
 
   describe("Event listeners", function() {
     describe("Control-based pagination listeners", function() {
       beforeEach(function() {
-        jasmine.Clock.useMock();
         destaque = $("#slide-container").destaque({
           itemSelector: ".item",
           itemForegroundElementSelector: ".foreground .element",
@@ -142,8 +160,17 @@ describe("Destaque Slideshow Plugin", function() {
         $("#slide-pagination a[rel='next']").trigger('click');
         expect($('.slide-1').hasClass('active')).toBeFalsy;
         expect($('.slide-2').hasClass('active')).toBeTruthy;
-        expect(destaque.params.currentSlide).toBe(1);
-      })
+        expect(destaque.params.currentSlide).toBe(2);
+      });
+      it("should go to previous page", function(){
+        $("#slide-pagination a[rel='prev']").trigger('click');
+        expect($('.slide-1').hasClass('active')).toBeFalsy;
+        expect($('.slide-0').hasClass('active')).toBeTruthy;
+        expect(destaque.params.currentSlide).toBe(0);
+      });
+      afterEach(function(){
+        destaque.restart();
+      });
     });
 
     describe("Keyboard-based pagination listeners", function() {

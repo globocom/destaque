@@ -6,6 +6,6 @@ $(function () {
     easingType: "easeInOutExpo",
     itemSelector: ".item",
     itemForegroundElementSelector: ".foreground .element",
-    controlsSelector: "#slide-pagination a"
+    controlsSelector: "#slide-pagination a",
   });
 });
