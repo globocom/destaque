@@ -67,7 +67,7 @@
         $(this).bind("click.destaque", function(e) {
           e.preventDefault();
 
-          var direction = $(e.currentTarget).attr("rel") === "prev" ? "toRight" : "toLeft";
+          var direction = $(this).attr("rel") === "prev" ? "toRight" : "toLeft";
           self.slideSetAndMove(direction);
         });
       });

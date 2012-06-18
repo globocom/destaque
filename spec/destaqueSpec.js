@@ -3,6 +3,7 @@ describe("Destaque Slideshow Plugin", function() {
 
   beforeEach(function() {
     loadFixtures("default.html");
+    $.fx.off = true;
   });
 
   describe("Plugin initialization", function() {
@@ -126,9 +127,23 @@ describe("Destaque Slideshow Plugin", function() {
 
   // TODO: Pending tests
 
-  xdescribe("Event listeners", function() {
+  describe("Event listeners", function() {
     describe("Control-based pagination listeners", function() {
-      // Pagination links
+      beforeEach(function() {
+        jasmine.Clock.useMock();
+        destaque = $("#slide-container").destaque({
+          itemSelector: ".item",
+          itemForegroundElementSelector: ".foreground .element",
+          controlsSelector: '#slide-pagination a'
+        });
+        destaque.pause();
+      });
+      it("should go to next page", function(){
+        $("#slide-pagination a[rel='next']").trigger('click');
+        expect($('.slide-1').hasClass('active')).toBeFalsy;
+        expect($('.slide-2').hasClass('active')).toBeTruthy;
+        expect(destaque.params.currentSlide).toBe(1);
+      })
     });
 
     describe("Keyboard-based pagination listeners", function() {
