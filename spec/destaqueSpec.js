@@ -209,7 +209,18 @@ describe("this.destaque Slideshow Plugin", function() {
     });
 
     describe("Window listeners", function() {
-      
+      it("should call onResize if the window is resized", function(){
+        var resizeDestaque = $("#slide-container").destaque({
+          itemSelector: ".item",
+          itemForegroundElementSelector: ".foreground .element",
+          autoSlideDelay: 0,
+          controlsSelector: '#slide-pagination a',
+          onResize: jasmine.createSpy("onPause")
+        });
+        resizeDestaque.pause();
+        $(window).trigger('resize');
+        expect(resizeDestaque.params.onResize).toHaveBeenCalledWith(resizeDestaque);
+      });
     });
   });
 
@@ -218,7 +229,7 @@ describe("this.destaque Slideshow Plugin", function() {
       this.destaque = $("#slide-container").destaque({
         itemSelector: ".item",
         itemForegroundElementSelector: ".foreground .element",
-        autoSlideDelay: 0,
+        autoSlideDelay: 200,
         controlsSelector: '#slide-pagination a'
       });
     });
