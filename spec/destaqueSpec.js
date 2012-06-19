@@ -194,7 +194,18 @@ describe("Destaque Slideshow Plugin", function() {
     });
 
     describe("Gesture-based pagination listeners", function() {
-      // Swipeleft and swiperight
+      it("should go to next page", function(){
+        destaque.element.trigger("swipeleft");
+        expect($('.slide-1').hasClass('active')).toBeFalsy;
+        expect($('.slide-2').hasClass('active')).toBeTruthy;
+        expect(destaque.params.currentSlide).toBe(1);
+      });
+      it("should go to previous page", function(){
+        destaque.element.trigger("swiperight");
+        expect($('.slide-1').hasClass('active')).toBeFalsy;
+        expect($('.slide-0').hasClass('active')).toBeTruthy;
+        expect(destaque.params.currentSlide).toBe(3);
+      });
     });
 
     describe("Window listeners", function() {
