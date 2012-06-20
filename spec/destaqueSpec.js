@@ -239,14 +239,6 @@ describe("this.destaque Slideshow Plugin", function() {
       jasmine.Clock.tick(200);
       expect(this.destaque.params.currentSlide).toBe(0);
     });
-    
-    it("should only pause if not currently animating", function() {
-      
-    });
-
-    it("should stop automatic slide switching timer", function() {
-    
-    });
   });
 
   describe("Resume automatic slide switching", function() {
@@ -254,7 +246,7 @@ describe("this.destaque Slideshow Plugin", function() {
       this.destaque = $("#slide-container").destaque({
         itemSelector: ".item",
         itemForegroundElementSelector: ".foreground .element",
-        autoSlideDelay: 200,
+        autoSlideDelay: 100,
         controlsSelector: '#slide-pagination a'
       });
       this.destaque.pause();
@@ -262,15 +254,8 @@ describe("this.destaque Slideshow Plugin", function() {
     it("should resume when resume is called", function(){
       expect(this.destaque.params.currentSlide).toBe(0);
       this.destaque.resume();
-      jasmine.Clock.tick(200);
-      expect(this.destaque.params.currentSlide).toBe(1);
-    });
-    it("should only resume if not currently animating", function() {
-    
-    });
-
-    it("should start automatic slide switching timer", function() {
-    
+      jasmine.Clock.tick(100);
+      expect(this.destaque.params.currentSlide).toBe(3);
     });
   });
   afterEach(function(){
