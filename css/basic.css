@@ -1,4 +1,4 @@
-#slide-container {
+#slide-container, #multiple-slide-container {
   position: relative;
   overflow: hidden;
   margin: 30px auto;

@@ -15,7 +15,7 @@
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
 
   <!-- Changes $.animate() in order to use CSS3 in modern browsers automatically -->
-  <script type="text/javascript" src="./js/jquery.animate-enhanced-0.91.js"></script>
+  <script type="text/javascript" src="https://github.com/louisremi/jquery.transition.js"></script>
 
   <!-- Adds support for mobile gestures (swipe left/right) -->
   <script type="text/javascript" src="./js/jquery.mobile.events.js"></script>  
@@ -28,8 +28,8 @@
   <a href="https://github.com/globocom/destaque">
     <img style="position: absolute; z-index: 100; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/>
   </a>
-
-  <div id="slide-container">
+  
+  <div id="slide-container" class="slides">
     <div class="item first">
       <a href="#">
         <div class="foreground">
@@ -85,9 +85,102 @@
       </a>
     </div>
   </div>
-
-  <p id="slide-pagination">
+  <p id="slide-pagination" class="pagination">
     <a href="#" rel="prev" title="Previous slide">&larr;</a> &nbsp; <a href="#" rel="next" title="Next slide">&rarr;</a>
   </p>
+  
+  <div id="multiple-slide-container" class="slides">
+    <div class="triple-slides">
+      <div class="item triple-first-one">
+        <a href="#">
+          <div class="foreground">
+            <div class="overlay"></div>
+            <div class="element icon"></div>
+            <div class="element title">Michelle</div>
+          </div>
+        </a>
+      </div>
+      <div class="item triple-first-two">
+        <a href="#">
+          <div class="foreground">
+            <div class="overlay"></div>
+            <div class="element icon"></div>
+            <div class="element title">Milena</div>
+          </div>
+        </a>
+      </div>
+      <div class="item triple-first-tree">
+        <a href="#">
+          <div class="foreground">
+            <div class="overlay"></div>
+            <div class="element icon"></div>
+            <div class="element title">Wanessa</div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="triple-slides">
+      <div class="item triple-second-one">
+        <a href="#">
+          <div class="foreground">
+            <div class="overlay"></div>
+            <div class="element icon"></div>
+            <div class="element title">Nicole</div>
+          </div>
+        </a>
+      </div>
+      <div class="item triple-second-two">
+        <a href="#">
+          <div class="foreground">
+            <div class="overlay"></div>
+            <div class="element icon"></div>
+            <div class="element title">Carol</div>
+          </div>
+        </a>
+      </div>
+      <div class="item triple-second-tree">
+        <a href="#">
+          <div class="foreground">
+            <div class="overlay"></div>
+            <div class="element icon"></div>
+            <div class="element title">Alessandra</div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="triple-slides">
+      <div class="item triple-third-one">
+        <a href="#">
+          <div class="foreground">
+            <div class="overlay"></div>
+            <div class="element icon"></div>
+            <div class="element title">Fabiana</div>
+          </div>
+        </a>
+      </div>
+      <div class="item triple-third-two">
+        <a href="#">
+          <div class="foreground">
+            <div class="overlay"></div>
+            <div class="element icon"></div>
+            <div class="element title">Monique</div>
+          </div>
+        </a>
+      </div>
+      <div class="item triple-third-tree">
+        <a href="#">
+          <div class="foreground">
+            <div class="overlay"></div>
+            <div class="element icon"></div>
+            <div class="element title">Rosana</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <p id="slide-triple-pagination" class="pagination">
+    <a href="#" rel="prev" title="Previous slide">&larr;</a> &nbsp; <a href="#" rel="next" title="Next slide">&rarr;</a>
+  </p>
+
 </body>
 </html>

@@ -42,6 +42,42 @@ a, a:hover {
   background: url(../img/lorena.jpg) no-repeat;
 }
 
+.item.triple-first-one {
+  background: url(../img/michelle.jpg) no-repeat;
+}
+
+.item.triple-first-two {
+  background: url(../img/milena.jpg) no-repeat;
+}
+
+.item.triple-first-tree {
+  background: url(../img/wanessa.jpg) no-repeat;
+}
+
+.item.triple-second-one {
+  background: url(../img/nicole.jpg) no-repeat;
+}
+
+.item.triple-second-two {
+  background: url(../img/carol.jpg) no-repeat;
+}
+
+.item.triple-second-tree {
+  background: url(../img/alessandra.jpg) no-repeat;
+}
+
+.item.triple-third-one {
+  background: url(../img/fabiana.jpg) no-repeat;
+}
+
+.item.triple-third-two {
+  background: url(../img/outra-monique.jpg) no-repeat;
+}
+
+.item.triple-third-tree {
+  background: url(../img/rosana.jpg) no-repeat;
+}
+
 .foreground .element {
   color: #fff;
   text-shadow: 1px 1px 2px #000000;
@@ -84,15 +120,40 @@ a, a:hover {
   top: 300px;
 }
 
-#slide-pagination {
+.pagination {
   text-align: center;
   font-size: 40px;
 }
 
-#slide-pagination a {
+.pagination a {
   color: #00f;
 }
 
 .ui-loader {
   display: none;
+}
+
+/*
+ * Triple slides
+ */
+
+.item {
+  display: block !important;
+}
+
+#multiple-slide-container .triple-slides {
+  width: 320px;
+  height: 540px;
+  float: left;
+  overflow: hidden;
+  position: relative;
+}
+
+#multiple-slide-container .triple-slides .foreground .element.title {
+  font-size: 28px;
+}
+
+#multiple-slide-container .triple-slides .item a {
+  width: 320px;
+  height: 540px;
 }
