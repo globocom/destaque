@@ -16,7 +16,7 @@ a, a:hover {
   border: 1px solid #000;
 }
 
-.item a {
+.item a, .item-triple a {
   display: block;
   width: 960px;
   height: 540px;
@@ -42,43 +42,43 @@ a, a:hover {
   background: url(../img/lorena.jpg) no-repeat;
 }
 
-.item.triple-first-one {
+.item-triple.triple-first-one {
   background: url(../img/michelle.jpg) no-repeat;
 }
 
-.item.triple-first-two {
+.item-triple.triple-first-two {
   background: url(../img/milena.jpg) no-repeat;
 }
 
-.item.triple-first-tree {
+.item-triple.triple-first-tree {
   background: url(../img/wanessa.jpg) no-repeat;
 }
 
-.item.triple-second-one {
+.item-triple.triple-second-one {
   background: url(../img/nicole.jpg) no-repeat;
 }
 
-.item.triple-second-two {
+.item-triple.triple-second-two {
   background: url(../img/carol.jpg) no-repeat;
 }
 
-.item.triple-second-tree {
+.item-triple.triple-second-tree {
   background: url(../img/alessandra.jpg) no-repeat;
 }
 
-.item.triple-third-one {
+.item-triple.triple-third-one {
   background: url(../img/fabiana.jpg) no-repeat;
 }
 
-.item.triple-third-two {
+.item-triple.triple-third-two {
   background: url(../img/outra-monique.jpg) no-repeat;
 }
 
-.item.triple-third-tree {
+.item-triple.triple-third-tree {
   background: url(../img/rosana.jpg) no-repeat;
 }
 
-.foreground .element {
+.foreground .element, .foreground-triple .element {
   color: #fff;
   text-shadow: 1px 1px 2px #000000;
   width: 500px;
@@ -86,7 +86,7 @@ a, a:hover {
   left: 130px;
 }
 
-.foreground .element.icon {
+.foreground .element.icon, .foreground-triple .element.icon {
   top: 340px;
   left: 60px;
   width: 114px;
@@ -95,7 +95,7 @@ a, a:hover {
   background-position: 0 0;
 }
 
-.foreground .overlay {
+.foreground .overlay, .foreground-triple .overlay {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -109,7 +109,7 @@ a, a:hover {
   background: linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.8) 80%);
 }
 
-.foreground .element.title {
+.foreground .element.title, .foreground-triple .element.title {
   text-transform: uppercase;
   font-size: 40px;
   top: 280px;
@@ -137,10 +137,6 @@ a, a:hover {
  * Triple slides
  */
 
-.item {
-  display: block !important;
-}
-
 #multiple-slide-container .triple-slides {
   width: 320px;
   height: 540px;
@@ -149,11 +145,11 @@ a, a:hover {
   position: relative;
 }
 
-#multiple-slide-container .triple-slides .foreground .element.title {
+#multiple-slide-container .triple-slides .foreground-triple .element.title {
   font-size: 28px;
 }
 
-#multiple-slide-container .triple-slides .item a {
+#multiple-slide-container .triple-slides .item-triple a {
   width: 320px;
   height: 540px;
 }

@@ -6,7 +6,7 @@
   height: 540px;
 }
 
-.item {
+.item, .item-triple {
   position: absolute;
   top: 0;
   left: 0;
