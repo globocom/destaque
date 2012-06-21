@@ -14,6 +14,7 @@ $(function () {
     destaques[index] = $(this).destaque({
       slideMovement: 100,
       slideSpeed: 1000,
+      autoSlideDelay: 3000,
       elementSpeed: 1100,
       stopOnMouseOver: false,
       easingType: "easeInOutExpo",
