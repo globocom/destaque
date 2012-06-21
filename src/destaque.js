@@ -1,3 +1,9 @@
+/*!
+ * jQuery Destaque - a simple slideshow plugin with built-in parallax effect
+ * https://github.com/globocom/destaque
+ * version: 0.1.0
+ */
+
 (function ($, window, document, undefined) {
   $.fn.destaque = function(params) {
     var params = $.extend({}, $.fn.destaque.options, params);
@@ -198,9 +204,9 @@
         params.onResume(this);
       }
     },
-    
+
     restart: function() {
-      
+
       if(this.params.currentSlide !== 1) {
         for(var i=0; i <= this.params.currentSlide; i++) {
           this.slideSetAndMove('toRight');
@@ -419,6 +425,7 @@
       params.animating = true;
       clearTimeout(params.autoId);
 
+      this.element.find(params.itemSelector + " " + params.itemForegroundElementSelector).removeAttr("style");
       this.element.find(params.itemSelector + "." + params.activeItemClass + " " + params.itemForegroundElementSelector).each(function() {
         var pos = params.elementDirection === "fromLeft" ? $(this).data("slidePos") * -1 + params.baseSize - $(this).width() : $(this).data("slidePos") * -1;
         $(this).stop().animate({left: pos}, params.elementSpeed, params.easingType);
