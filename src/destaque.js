@@ -1,6 +1,6 @@
-(function ($, window, undefined) {
+(function ($, window, document, undefined) {
   $.fn.destaque = function(params) {
-    params = $.extend($.fn.destaque.options, params);
+    var params = $.extend({}, $.fn.destaque.options, params);
     return new Destaque(this, params);
   };
 
@@ -62,11 +62,10 @@
       if (!this.params.controlsSelector) {
         return;
       }
-
       $(this.params.controlsSelector).each(function() {
         $(this).bind("click.destaque", function(e) {
           e.preventDefault();
-
+          
           var direction = $(this).attr("rel") === "prev" ? "toRight" : "toLeft";
           self.slideSetAndMove(direction);
         });
@@ -132,7 +131,6 @@
         params.baseSize = element.width();
         params.slideSum = element.find(this.params.itemSelector).length;
         params.elementDirection = params.slideDirection === "toLeft" ? "fromLeft" : "toLeft";
-
         if (params.currentSlide < 0 || params.currentSlide >= params.slideSum) {
           params.currentSlide = 0;
         }
@@ -146,7 +144,7 @@
     _initSlide: function() {
       var self = this;
       var params = this.params;
-
+      
       this.element.find(params.itemSelector).each(function() {
         $(this).data("zIndex", params.itemDefaultZIndex).css({zIndex: params.itemDefaultZIndex});
       });
@@ -213,7 +211,7 @@
 
     slideSetAndMove: function(direction) {
       var params = this.params;
-
+      
       if (!params.animating) {
         if (direction === "toLeft") {
           params.slideDirection = "toLeft";
@@ -254,11 +252,10 @@
     _moveSlide: function() {
       var self = this;
       var params = this.params;
-
+      
       var outPosition = 0;
       var current = this._currentSlide();
       var next = this._nextSlide();
-
       params.animating = true;
 
       if (params.slideDirection === "toLeft") {
@@ -410,7 +407,7 @@
 
     _slideElementsOut: function() {
       var params = this.params;
-
+      
       if (params.slideSum < 2) {
         return;
       }

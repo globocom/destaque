@@ -1,4 +1,4 @@
-describe("this.destaque Slideshow Plugin", function() {
+describe("destaque Slideshow Plugin", function() {
 
   beforeEach(function() {
     jasmine.Clock.useMock();
@@ -255,10 +255,56 @@ describe("this.destaque Slideshow Plugin", function() {
       expect(this.destaque.params.currentSlide).toBe(0);
       this.destaque.resume();
       jasmine.Clock.tick(100);
-      expect(this.destaque.params.currentSlide).toBe(3);
+      expect(this.destaque.params.currentSlide).toBe(1);
     });
   });
   afterEach(function(){
      this.destaque.restart();
+  });
+});
+describe("destaque slideshow plugin multiple", function(){
+  beforeEach(function() {
+    jasmine.Clock.useMock();
+    loadFixtures("double.html");
+    $.fx.off = true;
+  });
+  describe("two slides in same page", function(){
+    beforeEach(function(){
+      this.destaqueFirst = $("#slide-first").destaque({
+        itemSelector: ".item",
+        itemForegroundElementSelector: ".foreground .element",
+        autoSlideDelay: 100,
+        controlsSelector: '#slide-pagination a'
+      });
+      this.destaqueSecond = $("#slide-second").destaque({
+        itemSelector: ".item",
+        itemForegroundElementSelector: ".foreground .element",
+        autoSlideDelay: 100,
+        controlsSelector: '#second-slide-pagination a'
+      });
+      this.destaqueFirst.pause();
+      this.destaqueSecond.pause();
+    });
+    it("should go to the second page with two slides in same time", function(){
+      this.destaqueFirst.resume();
+      this.destaqueSecond.resume();
+      jasmine.Clock.tick(100);
+      expect(this.destaqueFirst.params.currentSlide).toBe(1);
+      expect(this.destaqueSecond.params.currentSlide).toBe(1);
+      console.info($('.slide-1', '#slide-first'));
+      expect($('.slide-2', '#slide-first').hasClass('active')).toBeTruthy();
+      expect($('.slide-2', '#slide-second').hasClass('active')).toBeTruthy();
+    });
+    it("should paginate each slide independent one from other", function(){
+      $("#slide-pagination a[rel='next']").trigger('click');
+      expect(this.destaqueFirst.params.currentSlide).toBe(1);
+      expect(this.destaqueSecond.params.currentSlide).toBe(0);
+      expect($('.slide-2', '#slide-first').hasClass('active')).toBeTruthy();
+      expect($('.slide-2', '#slide-second').hasClass('active')).toBeFalsy();
+    });
+  });
+  afterEach(function() {
+    this.destaqueFirst.restart();
+    this.destaqueSecond.restart();
   });
 });
