@@ -3,10 +3,10 @@
 <head>
   <title>Destaque Slideshow Demo</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
-  <link media="screen" rel="stylesheet" type="text/css" href="./css/reset.css"/>
+  <link media="screen" rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
 
   <!-- Demo page style -->
+  <link media="screen" rel="stylesheet" type="text/css" href="./css/prettify.css"/>
   <link media="screen" rel="stylesheet" type="text/css" href="./css/basic.css"/>
   <link media="screen" rel="stylesheet" type="text/css" href="./css/style.css"/>
 
@@ -18,169 +18,352 @@
   <script type="text/javascript" src="https://raw.github.com/louisremi/jquery.transition.js/master/jquery.transition.min.js"></script>
 
   <!-- Adds support for mobile gestures (swipe left/right) -->
-  <script type="text/javascript" src="./js/jquery.mobile.events.js"></script>  
+  <script type="text/javascript" src="./js/jquery.mobile.events.js"></script>
+  <script type="text/javascript" src="./js/prettify.js"></script>  
 
   <!-- Plugin initialization -->
   <script type="text/javascript" src="https://raw.github.com/globocom/destaque/master/src/destaque.js"></script>
   <script type="text/javascript" src="./js/init.js"></script>
 </head>
-<body>
-  <a href="https://github.com/globocom/destaque">
-    <img style="position: absolute; z-index: 100; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/>
-  </a>
+<body onload="prettyPrint()">
+   <a href="https://github.com/globocom/destaque">
+      <img style="position: absolute; z-index: 100; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/>
+    </a>
+    <div class="container">
+      <h1>jQuery Destaque Plugin</h1>
+      <p>A slide prestentation plugin with a built in paralax effect.</p>
+      <h2>Simple slides example:</h2>
+      <div id="slide-container" class="slides">
+        <div class="item first">
+          <a href="#">
+            <div class="foreground">
+              <div class="overlay"></div>
+              <div class="element icon"></div>
+              <div class="element title">Aline Espíndola</div>
+              <div class="element subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sed lacus vel mi imperdiet mollis. Nulla at nisi quam, at porta magna.</div>
+            </div>
+          </a>
+        </div>
+    
+        <div class="item second">
+          <a href="#">
+            <div class="foreground">
+              <div class="overlay"></div>
+              <div class="element icon"></div>
+              <div class="element title">Monique Luchese</div>
+              <div class="element subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sed lacus vel mi imperdiet mollis. Nulla at nisi quam, at porta magna.</div>
+            </div>
+          </a>
+        </div>
+    
+        <div class="item third">
+          <a href="#">
+            <div class="foreground">
+              <div class="overlay"></div>
+              <div class="element icon"></div>
+              <div class="element title">Luciane Hoepers</div>
+              <div class="element subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sed lacus vel mi imperdiet mollis. Nulla at nisi quam, at porta magna.</div>
+            </div>
+          </a>
+        </div>
+    
+        <div class="item fourth">
+          <a href="#">
+            <div class="foreground">
+              <div class="overlay"></div>
+              <div class="element icon"></div>
+              <div class="element title">Adriana</div>
+              <div class="element subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sed lacus vel mi imperdiet mollis. Nulla at nisi quam, at porta magna.</div>
+            </div>
+          </a>
+        </div>
+    
+        <div class="item fifth">
+          <a href="#">
+            <div class="foreground">
+              <div class="overlay"></div>
+              <div class="element icon"></div>
+              <div class="element title">Lorena Bueri</div>
+              <div class="element subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sed lacus vel mi imperdiet mollis. Nulla at nisi quam, at porta magna.</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <ul id="slide-pagination" class="pager">
+        <li>
+          <a rel="prev" href="#">&larr; Previous </a>
+        </li>
+        <li>
+          <a rel="next" href="#">Next &rarr;</a>
+        </li>
+      </ul>
+       <div class="row">
+         <div class="span6">
+          <h3>Javascript</h3>
+<pre class="prettyprint linenums">
+ $("#slide-container").destaque({
+    slideMovement: 100,
+    slideSpeed: 1000,
+    elementSpeed: 1100,
+    easingType: "easeInOutExpo",
+    itemSelector: ".item",
+    itemForegroundElementSelector: ".foreground .element",
+    controlsSelector: "#slide-pagination a"
+  });
+</pre>          
+        </div>
+        <div class="span6">
+        <h3>Markup</h3>
+<pre class="prettyprint linenums">
+&lt;div id=&quot;slide-container&quot; class=&quot;slides&quot;&gt;
+  &lt;div class=&quot;item first&quot;&gt;
+    &lt;a href=&quot;#&quot;&gt;
+      &lt;div class=&quot;foreground&quot;&gt;
+        &lt;div class=&quot;overlay&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;element icon&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;element title&quot;&gt;Aline Esp&iacute;ndola&lt;/div&gt;
+        &lt;div class=&quot;element subtitle&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sed lacus vel mi imperdiet mollis. Nulla at nisi quam, at porta magna.&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
   
-  <div id="slide-container" class="slides">
-    <div class="item first">
-      <a href="#">
-        <div class="foreground">
-          <div class="overlay"></div>
-          <div class="element icon"></div>
-          <div class="element title">Aline Espíndola</div>
-          <div class="element subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sed lacus vel mi imperdiet mollis. Nulla at nisi quam, at porta magna.</div>
+&lt;/div&gt;
+&lt;ul id=&quot;slide-pagination&quot; class=&quot;pager&quot;&gt;
+  &lt;li&gt;
+    &lt;a rel=&quot;prev&quot; href=&quot;#&quot;&gt;&amp;larr; Previous &lt;/a&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;a rel=&quot;next&quot; href=&quot;#&quot;&gt;Next &amp;rarr;&lt;/a&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</pre>          
         </div>
-      </a>
-    </div>
 
-    <div class="item second">
-      <a href="#">
-        <div class="foreground">
-          <div class="overlay"></div>
-          <div class="element icon"></div>
-          <div class="element title">Monique Luchese</div>
-          <div class="element subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sed lacus vel mi imperdiet mollis. Nulla at nisi quam, at porta magna.</div>
+      </div>
+      <hr />
+      <div id="multiple-slide-container" class="slides">
+        <h2>Multiple slides example:</h2>
+        <div class="triple-slides">
+          <div class="item-triple triple-first-one">
+            <a href="#">
+              <div class="foreground-triple">
+                <div class="overlay"></div>
+                <div class="element icon"></div>
+                <div class="element title">Michelle</div>
+              </div>
+            </a>
+          </div>
+          <div class="item-triple triple-first-two">
+            <a href="#">
+              <div class="foreground-triple">
+                <div class="overlay"></div>
+                <div class="element icon"></div>
+                <div class="element title">Milena</div>
+              </div>
+            </a>
+          </div>
+          <div class="item-triple triple-first-tree">
+            <a href="#">
+              <div class="foreground-triple">
+                <div class="overlay"></div>
+                <div class="element icon"></div>
+                <div class="element title">Wanessa</div>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
-    </div>
-
-    <div class="item third">
-      <a href="#">
-        <div class="foreground">
-          <div class="overlay"></div>
-          <div class="element icon"></div>
-          <div class="element title">Luciane Hoepers</div>
-          <div class="element subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sed lacus vel mi imperdiet mollis. Nulla at nisi quam, at porta magna.</div>
+        <div class="triple-slides">
+          <div class="item-triple triple-second-one">
+            <a href="#">
+              <div class="foreground-triple">
+                <div class="overlay"></div>
+                <div class="element icon"></div>
+                <div class="element title">Nicole</div>
+              </div>
+            </a>
+          </div>
+          <div class="item-triple triple-second-two">
+            <a href="#">
+              <div class="foreground-triple">
+                <div class="overlay"></div>
+                <div class="element icon"></div>
+                <div class="element title">Carol</div>
+              </div>
+            </a>
+          </div>
+          <div class="item-triple triple-second-tree">
+            <a href="#">
+              <div class="foreground-triple">
+                <div class="overlay"></div>
+                <div class="element icon"></div>
+                <div class="element title">Alessandra</div>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
-    </div>
-
-    <div class="item fourth">
-      <a href="#">
-        <div class="foreground">
-          <div class="overlay"></div>
-          <div class="element icon"></div>
-          <div class="element title">Adriana</div>
-          <div class="element subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sed lacus vel mi imperdiet mollis. Nulla at nisi quam, at porta magna.</div>
+        <div class="triple-slides">
+          <div class="item-triple triple-third-one">
+            <a href="#">
+              <div class="foreground-triple">
+                <div class="overlay"></div>
+                <div class="element icon"></div>
+                <div class="element title">Fabiana</div>
+              </div>
+            </a>
+          </div>
+          <div class="item-triple triple-third-two">
+            <a href="#">
+              <div class="foreground-triple">
+                <div class="overlay"></div>
+                <div class="element icon"></div>
+                <div class="element title">Monique</div>
+              </div>
+            </a>
+          </div>
+          <div class="item-triple triple-third-tree">
+            <a href="#">
+              <div class="foreground-triple">
+                <div class="overlay"></div>
+                <div class="element icon"></div>
+                <div class="element title">Rosana</div>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
-    </div>
-
-    <div class="item fifth">
-      <a href="#">
-        <div class="foreground">
-          <div class="overlay"></div>
-          <div class="element icon"></div>
-          <div class="element title">Lorena Bueri</div>
-          <div class="element subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sed lacus vel mi imperdiet mollis. Nulla at nisi quam, at porta magna.</div>
+      </div>
+      <ul id="slide-triple-pagination" class="pager">
+        <li>
+          <a rel="prev" href="#">&larr; Previous </a>
+        </li>
+        <li>
+          <a rel="next" href="#">Next &rarr;</a>
+        </li>
+      </ul>
+       <div class="row">
+         <div class="span6">
+          <h3>Javascript</h3>
+<pre class="prettyprint linenums">
+ $('.triple-slides').each(function(index, el){
+    $(this).destaque({
+      slideMovement: 100,
+      slideSpeed: 1000,
+      elementSpeed: 1100,
+      stopOnMouseOver: false,
+      easingType: "easeInOutExpo",
+      itemSelector: ".item-triple",
+      itemForegroundElementSelector: ".foreground-triple .element",
+      controlsSelector: "#slide-triple-pagination a"
+    });
+  });
+</pre>          
         </div>
-      </a>
-    </div>
-  </div>
-  <p id="slide-pagination" class="pagination">
-    <a href="#" rel="prev" title="Previous slide">&larr;</a> &nbsp; <a href="#" rel="next" title="Next slide">&rarr;</a>
-  </p>
-  
-  <div id="multiple-slide-container" class="slides">
-    <div class="triple-slides">
-      <div class="item-triple triple-first-one">
-        <a href="#">
-          <div class="foreground-triple">
-            <div class="overlay"></div>
-            <div class="element icon"></div>
-            <div class="element title">Michelle</div>
-          </div>
-        </a>
-      </div>
-      <div class="item-triple triple-first-two">
-        <a href="#">
-          <div class="foreground-triple">
-            <div class="overlay"></div>
-            <div class="element icon"></div>
-            <div class="element title">Milena</div>
-          </div>
-        </a>
-      </div>
-      <div class="item-triple triple-first-tree">
-        <a href="#">
-          <div class="foreground-triple">
-            <div class="overlay"></div>
-            <div class="element icon"></div>
-            <div class="element title">Wanessa</div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="triple-slides">
-      <div class="item-triple triple-second-one">
-        <a href="#">
-          <div class="foreground-triple">
-            <div class="overlay"></div>
-            <div class="element icon"></div>
-            <div class="element title">Nicole</div>
-          </div>
-        </a>
-      </div>
-      <div class="item-triple triple-second-two">
-        <a href="#">
-          <div class="foreground-triple">
-            <div class="overlay"></div>
-            <div class="element icon"></div>
-            <div class="element title">Carol</div>
-          </div>
-        </a>
-      </div>
-      <div class="item-triple triple-second-tree">
-        <a href="#">
-          <div class="foreground-triple">
-            <div class="overlay"></div>
-            <div class="element icon"></div>
-            <div class="element title">Alessandra</div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="triple-slides">
-      <div class="item-triple triple-third-one">
-        <a href="#">
-          <div class="foreground-triple">
-            <div class="overlay"></div>
-            <div class="element icon"></div>
-            <div class="element title">Fabiana</div>
-          </div>
-        </a>
-      </div>
-      <div class="item-triple triple-third-two">
-        <a href="#">
-          <div class="foreground-triple">
-            <div class="overlay"></div>
-            <div class="element icon"></div>
-            <div class="element title">Monique</div>
-          </div>
-        </a>
-      </div>
-      <div class="item-triple triple-third-tree">
-        <a href="#">
-          <div class="foreground-triple">
-            <div class="overlay"></div>
-            <div class="element icon"></div>
-            <div class="element title">Rosana</div>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
-  <p id="slide-triple-pagination" class="pagination">
-    <a href="#" rel="prev" title="Previous slide">&larr;</a> &nbsp; <a href="#" rel="next" title="Next slide">&rarr;</a>
-  </p>
+        <div class="span6">
+        <h3>Markup</h3>
+<pre class="prettyprint linenums">
+&lt;div id=&quot;multiple-slide-container&quot; class=&quot;slides&quot;&gt;
+  &lt;h2&gt;Multiple slides example:&lt;/h2&gt;
+  &lt;div class=&quot;triple-slides&quot;&gt;
+    &lt;div class=&quot;item-triple triple-first-one&quot;&gt;
+      &lt;a href=&quot;#&quot;&gt;
+        &lt;div class=&quot;foreground-triple&quot;&gt;
+          &lt;div class=&quot;overlay&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;element icon&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;element title&quot;&gt;Michelle&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;item-triple triple-first-two&quot;&gt;
+      &lt;a href=&quot;#&quot;&gt;
+        &lt;div class=&quot;foreground-triple&quot;&gt;
+          &lt;div class=&quot;overlay&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;element icon&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;element title&quot;&gt;Milena&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;item-triple triple-first-tree&quot;&gt;
+      &lt;a href=&quot;#&quot;&gt;
+        &lt;div class=&quot;foreground-triple&quot;&gt;
+          &lt;div class=&quot;overlay&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;element icon&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;element title&quot;&gt;Wanessa&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;triple-slides&quot;&gt;
+    &lt;div class=&quot;item-triple triple-second-one&quot;&gt;
+      &lt;a href=&quot;#&quot;&gt;
+        &lt;div class=&quot;foreground-triple&quot;&gt;
+          &lt;div class=&quot;overlay&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;element icon&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;element title&quot;&gt;Nicole&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;item-triple triple-second-two&quot;&gt;
+      &lt;a href=&quot;#&quot;&gt;
+        &lt;div class=&quot;foreground-triple&quot;&gt;
+          &lt;div class=&quot;overlay&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;element icon&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;element title&quot;&gt;Carol&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;item-triple triple-second-tree&quot;&gt;
+      &lt;a href=&quot;#&quot;&gt;
+        &lt;div class=&quot;foreground-triple&quot;&gt;
+          &lt;div class=&quot;overlay&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;element icon&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;element title&quot;&gt;Alessandra&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;triple-slides&quot;&gt;
+    &lt;div class=&quot;item-triple triple-third-one&quot;&gt;
+      &lt;a href=&quot;#&quot;&gt;
+        &lt;div class=&quot;foreground-triple&quot;&gt;
+          &lt;div class=&quot;overlay&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;element icon&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;element title&quot;&gt;Fabiana&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;item-triple triple-third-two&quot;&gt;
+      &lt;a href=&quot;#&quot;&gt;
+        &lt;div class=&quot;foreground-triple&quot;&gt;
+          &lt;div class=&quot;overlay&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;element icon&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;element title&quot;&gt;Monique&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;item-triple triple-third-tree&quot;&gt;
+      &lt;a href=&quot;#&quot;&gt;
+        &lt;div class=&quot;foreground-triple&quot;&gt;
+          &lt;div class=&quot;overlay&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;element icon&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;element title&quot;&gt;Rosana&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;ul id=&quot;slide-triple-pagination&quot; class=&quot;pager&quot;&gt;
+  &lt;li&gt;
+    &lt;a rel=&quot;prev&quot; href=&quot;#&quot;&gt;&amp;larr; Previous &lt;/a&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;a rel=&quot;next&quot; href=&quot;#&quot;&gt;Next &amp;rarr;&lt;/a&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</pre>          
+        </div>
 
+      </div>
+
+    </div> <!-- /container -->
+    
 </body>
 </html>

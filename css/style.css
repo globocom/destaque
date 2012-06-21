@@ -120,15 +120,6 @@ a, a:hover {
   top: 300px;
 }
 
-.pagination {
-  text-align: center;
-  font-size: 40px;
-}
-
-.pagination a {
-  color: #00f;
-}
-
 .ui-loader {
   display: none;
 }
