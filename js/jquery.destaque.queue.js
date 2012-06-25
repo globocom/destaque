@@ -19,6 +19,7 @@
 
         var options = $.extend( {}, $.fn.destaquesQueue.options, options );
         var instances = [];
+        var currentSlide = 1;
         var Destaques = {
           init: function(index, el) {
             instances[index] = $(el).destaque({
@@ -29,12 +30,16 @@
               stopOnMouseOver: false,
               easingType: options.easingType,
               itemSelector: options.itemSelector,
-              itemForegroundElementSelector: options.itemForegroundElementSelector
+              itemForegroundElementSelector: options.itemForegroundElementSelector,
+              onPageUpdate: function(slideshow, data) {
+                if(currentSlide !== data.currentSlide){
+                   options.onPageUpdate(this, slideshow, data);
+                }
+                currentSlide = data.currentSlide;
+              }
             });
-            Destaques.pause();
-            for(var i=0; i<instances.length; i++) {
-             Destaques.resume(i);
-            }     
+            
+            //instances[index].pause();
           },
           pause: function() {
             for(var i=0; i<instances.length; i++) {
@@ -66,7 +71,8 @@
         });
         return this.each(function (index, el) {
               var elem = $(this);
-              window.setTimeout(Destaques.init, index*options.delay, index, el);                
+              window.setTimeout(Destaques.init, index*options.delay, index, el);
+                              
         });
     };
 
@@ -82,7 +88,8 @@
         elementSpeed: 1100,
         easingType: "easeInOutExpo",
         itemSelector: ".item-triple",
-        itemForegroundElementSelector: ".foreground-triple .element"
+        itemForegroundElementSelector: ".foreground-triple .element",
+        onPageUpdate: function(slideshow, data){}
     };
 
 })( jQuery, window, document );
