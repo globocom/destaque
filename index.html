@@ -21,6 +21,7 @@
 
   <!-- Plugin initialization -->
   <script type="text/javascript" src="https://raw.github.com/globocom/destaque/master/src/destaque.js"></script>
+  <script type="text/javascript" src="./js/jquery.destaque.queue.js"></script>
   <script type="text/javascript" src="./js/init.js"></script>
 </head>
 <body>
@@ -210,12 +211,15 @@
          <div class="span6">
           <h3>Javascript</h3>
           <script src="https://gist.github.com/2968672.js?file=triple_destaque_example.js"></script>
+          <p>When you have multiple slides, the plugin execute all animations at same time, if you wish a delay for plugin animations, please consider to use <code>jquery.destaque.queue.js</code></p>
+          <p>This is a example how to use it as a wrapper for <code>jquery.destaque.js</code></p>
+          <script src="https://gist.github.com/2990140.js?file=jquery_destaque_queue.js"></script>
+          <p>In the example above, there's a delay of 250 miliseconds between all slides initialized</p>
         </div>
         <div class="span6">
           <h3>Markup</h3>
           <script src="https://gist.github.com/2968698.js?file=triple_destaque_example.html"></script>
         </div>
-
       </div>
       <hr />
     <footer class="footer">
