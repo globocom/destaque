@@ -22,22 +22,25 @@
         var currentSlide = 1;
         var Destaques = {
           init: function(index, el) {
-            instances[index] = $(el).destaque({
-              slideMovement: options.slideMovement,
-              slideSpeed: options.slideSpeed,
-              autoSlideDelay: options.SlideDelay,
-              elementSpeed: options.elementSpeed,
-              stopOnMouseOver: false,
-              easingType: options.easingType,
-              itemSelector: options.itemSelector,
-              itemForegroundElementSelector: options.itemForegroundElementSelector,
-              onPageUpdate: function(slideshow, data) {
-                if(currentSlide !== data.currentSlide){
-                   options.onPageUpdate(this, slideshow, data);
+              window.setTimeout(function(){
+                instances[index] = $(el).destaque({
+                slideMovement: options.slideMovement,
+                slideSpeed: options.slideSpeed,
+                autoSlideDelay: options.SlideDelay,
+                elementSpeed: options.elementSpeed,
+                stopOnMouseOver: false,
+                easingType: options.easingType,
+                itemSelector: options.itemSelector,
+                itemForegroundElementSelector: options.itemForegroundElementSelector,
+                onPageUpdate: function(slideshow, data) {
+                  if(currentSlide !== data.currentSlide){
+                     options.onPageUpdate(this, slideshow, data);
+                  }
+                  currentSlide = data.currentSlide;
                 }
-                currentSlide = data.currentSlide;
-              }
-            });
+              });  
+            }, index*options.delay);
+            
             
             //instances[index].pause();
           },
@@ -49,7 +52,7 @@
           move: function(i, direction){
             instances[i].slideSetAndMove(direction);
           },
-          resume: function(i) {
+          resume: function() {
              instances[i].resume();
           }
         };
@@ -71,8 +74,7 @@
         });
         return this.each(function (index, el) {
               var elem = $(this);
-              window.setTimeout(Destaques.init, index*options.delay, index, el);
-                              
+              Destaques.init(index,el);
         });
     };
 

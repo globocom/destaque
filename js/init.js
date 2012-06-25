@@ -12,10 +12,7 @@ $(function () {
   });
   
  $('.triple-slides').destaquesQueue({
-    delay: 750,
-    onPageUpdate: function(page){
-      console.info(page);
-    }
+    delay: 750
  });
 
 });
