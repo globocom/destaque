@@ -71,7 +71,7 @@
       $(this.params.controlsSelector).each(function() {
         $(this).bind("click.destaque", function(e) {
           e.preventDefault();
-          
+
           var direction = $(this).attr("rel") === "prev" ? "toRight" : "toLeft";
           self.slideSetAndMove(direction);
         });
@@ -150,7 +150,7 @@
     _initSlide: function() {
       var self = this;
       var params = this.params;
-      
+
       this.element.find(params.itemSelector).each(function() {
         $(this).data("zIndex", params.itemDefaultZIndex).css({zIndex: params.itemDefaultZIndex});
       });
@@ -206,7 +206,6 @@
     },
 
     restart: function() {
-
       if(this.params.currentSlide !== 1) {
         for(var i=0; i <= this.params.currentSlide; i++) {
           this.slideSetAndMove('toRight');
@@ -217,7 +216,7 @@
 
     slideSetAndMove: function(direction) {
       var params = this.params;
-      
+
       if (!params.animating) {
         if (direction === "toLeft") {
           params.slideDirection = "toLeft";
@@ -258,7 +257,8 @@
     _moveSlide: function() {
       var self = this;
       var params = this.params;
-      
+
+      var initialPosition = 0;
       var outPosition = 0;
       var current = this._currentSlide();
       var next = this._nextSlide();
@@ -272,7 +272,7 @@
         next.css({left: -params.baseSize, zIndex: params.itemDefaultZIndex + 1}).show();
       }
 
-      next.stop().animate({left: current.css("left")}, params.slideSpeed, params.easingType, function() {
+      next.stop().animate({left: initialPosition}, params.slideSpeed, params.easingType, function() {
         next.addClass(params.activeItemClass);
       });
 
@@ -335,8 +335,7 @@
     },
 
     _nextSlide: function() {
-      var params = this.params;
-      return this.element.find(params.itemSelector).eq(this._nextPage());
+      return this.element.find(this.params.itemSelector).eq(this._nextPage());
     },
 
     _updateCurrentSlide: function() {
@@ -413,7 +412,7 @@
 
     _slideElementsOut: function() {
       var params = this.params;
-      
+
       if (params.slideSum < 2) {
         return;
       }
