@@ -50,7 +50,9 @@
             }     
           },
           move: function(i, direction){
-            instances[i].slideSetAndMove(direction);
+            window.setTimeout(function(){
+              instances[i].slideSetAndMove(direction);
+            }, i*options.delay);
           },
           resume: function(i) {
             window.setTimeout(function(){
@@ -71,8 +73,8 @@
         $(options.controlsSelector).bind('click', function() {
           var direction = $(this).attr("rel") === "prev" ? "toRight" : "toLeft";
           for(var i=0; i<instances.length; i++) {
-            window.setTimeout(Destaques.move, i*options.delay, i, direction);
-           }
+            Destaques.move(i, direction);
+          }
           return false;
         });
         return this.each(function (index, el) {
