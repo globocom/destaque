@@ -52,8 +52,11 @@
           move: function(i, direction){
             instances[i].slideSetAndMove(direction);
           },
-          resume: function() {
-             instances[i].resume();
+          resume: function(i) {
+            window.setTimeout(function(){
+              instances[i].resume();
+            }, i*options.delay)
+             
           }
         };
         if(options.stopOnMouseOver) {
@@ -61,7 +64,7 @@
             Destaques.pause();            
            }).mouseleave(function() {
               for(var i=0; i<instances.length; i++) {
-               window.setTimeout(Destaques.resume, i*options.delay, i);
+                 Destaques.resume(i);
               }
            });          
         }
