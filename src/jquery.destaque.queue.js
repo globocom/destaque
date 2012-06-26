@@ -67,14 +67,13 @@
 
         var self = this;
         var parent = $(this.elements).parent();
+
         parent.mouseover(function(){
           self.pause();
         });
 
         parent.mouseleave(function() {
-          for(var i = 0; i < self.instances.length; i++) {
-            self.resume(i);
-          }
+          self.resume();
         });
 
       }
@@ -98,18 +97,24 @@
       }
     },
 
+    resume: function() {
+      for(var i = 0; i < this.instances.length; i++) {
+        this._resumeFor(i);
+      }
+    },
+
+    _resumeFor: function(index) {
+      var self = this;
+      window.setTimeout(function(){
+        self.instances[index].resume();
+      }, index * this.options.delay)
+    },
+
     move: function(index, direction){
       var self = this;
       window.setTimeout(function(){
         self.instances[index].slideSetAndMove(direction);
       }, index * this.options.delay);
-    },
-
-    resume: function(index) {
-      var self = this;
-      window.setTimeout(function(){
-        self.instances[index].resume();
-      }, index * this.options.delay)
     }
   }
 
