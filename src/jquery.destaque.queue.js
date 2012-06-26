@@ -24,7 +24,7 @@
     this.options = options;
     this.elements = elements;
     this.instances = [];
-    this.currentSlide = 1;
+    this.currentSlide = 0;
 
     this._initializeMouseEvents();
     this._initializeControls();
