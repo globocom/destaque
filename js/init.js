@@ -11,8 +11,8 @@ $(function () {
     controlsSelector: "#slide-pagination a"
   });
   
- $('.triple-slides').destaquesQueue({
+ /*$('.triple-slides').destaquesQueue({
     delay: 750
- });
+ });*/
 
 });
