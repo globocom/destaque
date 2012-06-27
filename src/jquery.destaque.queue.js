@@ -16,7 +16,7 @@
 ;(function ($, window, document, undefined) {
 
   $.fn.destaquesQueue = function (options) {
-    var options = $.extend({}, $.fn.destaque.options, options);
+    var options = $.extend({}, $.fn.destaquesQueue.options, options);
     return new DestaqueWrapper(options, $(this));
   }
 
@@ -28,13 +28,13 @@
 
     this._initializeMouseEvents();
     this._initializeControls();
+    this._initKeyboardListeners();
     var self = this;
-
-    for(var i = 0; i < this.elements.length; i++) {
-      this._initializeDestaque(i);
-    }
-
-    this.options.onInit(this);
+    this.elements.each(function(i, el) {
+      self._initializeDestaque(i);
+    });
+    
+    this.options.onInit.call(this);
   }
 
   DestaqueWrapper.prototype = {
@@ -56,9 +56,11 @@
               self.options.onPageUpdate(self, slideshow, pageData);
             }
             self.currentSlide = pageData.currentSlide;
+          },
+          onInit: function() {
+            $(window).unbind('keydown.destaque');
           }
         });
-
       }, index * self.options.delay);
     },
 
@@ -90,6 +92,21 @@
         }
       });
     },
+    
+    _initKeyboardListeners: function() {
+      var self = this;
+      $(window).bind("keydown.destaqueQueue", function(e) {
+        if (e.keyCode === 37) {
+          for(var i = 0; i < self.instances.length; i++){
+            self.move(i, "toRight");
+          }
+        } else {
+          for(var i = 0; i < self.instances.length; i++){
+            self.move(i, "toLeft");
+          }
+        }
+      });
+    },
 
     pause: function() {
       for(var i = 0; i < this.instances.length; i++) {
@@ -114,7 +131,7 @@
       var self = this;
       window.setTimeout(function(){
         self.instances[index].slideSetAndMove(direction);
-      }, index * this.options.delay);
+      }, index * self.options.delay);
     }
   }
 
