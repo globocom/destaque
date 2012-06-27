@@ -291,7 +291,6 @@ describe("destaque slideshow plugin multiple", function(){
       jasmine.Clock.tick(100);
       expect(this.destaqueFirst.params.currentSlide).toBe(1);
       expect(this.destaqueSecond.params.currentSlide).toBe(1);
-      console.info($('.slide-1', '#slide-first'));
       expect($('.slide-2', '#slide-first').hasClass('active')).toBeTruthy();
       expect($('.slide-2', '#slide-second').hasClass('active')).toBeTruthy();
     });
