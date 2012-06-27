@@ -58,7 +58,7 @@
             self.currentSlide = pageData.currentSlide;
           },
           onInit: function() {
-            $(window).unbind('keydown.destaque');
+            $(document).unbind('keydown.destaque');
           }
         });
       }, index * self.options.delay);
@@ -95,7 +95,7 @@
     
     _initKeyboardListeners: function() {
       var self = this;
-      $(window).bind("keydown.destaqueQueue", function(e) {
+      $(document).bind("keydown.destaqueQueue", function(e) {
         if (e.keyCode === 37) {
           for(var i = 0; i < self.instances.length; i++){
             self.move(i, "toRight");

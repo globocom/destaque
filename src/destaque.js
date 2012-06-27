@@ -110,7 +110,7 @@
     _initKeyboardListeners: function() {
       var self = this;
 
-      $(window).bind("keydown.destaque", function(e) {
+      $(document).bind("keydown.destaque", function(e) {
         if (e.keyCode === 37) {
           self.slideSetAndMove("toRight");
         } else {
