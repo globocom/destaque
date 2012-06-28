@@ -23,16 +23,13 @@
   var DestaqueWrapper = function(options, elements) {
     this.options = options;
     this.elements = elements;
-    this.instances = [];
+    this.instances = new Array(this.elements.length);
     this.currentSlide = 0;
 
     this._initializeMouseEvents();
     this._initializeControls();
     this._initKeyboardListeners();
-    var self = this;
-    this.elements.each(function(i, el) {
-      self._initializeDestaque(i);
-    });
+    this._queue(this._initializeDestaque);
     
     this.options.onInit.call(this);
   }
@@ -64,7 +61,7 @@
     
     _queue: function(method) {
       for(var i = 0; i < this.instances.length; i++) {
-          method.call(this, i, arguments[1]);
+         method.call(this, i, arguments[1]);
        }
     },
 
