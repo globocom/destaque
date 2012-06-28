@@ -23,7 +23,7 @@
   var DestaqueWrapper = function(options, elements) {
     this.options = options;
     this.elements = elements;
-    this.instances = new Array(this.elements.length);
+    this.instances = [];
     this.currentSlide = 0;
 
     this._initializeMouseEvents();
@@ -52,6 +52,7 @@
             self.options.onPageUpdate(self, slideshow, pageData);
           }
           self.currentSlide = pageData.currentSlide;
+          
         },
         onInit: function() {
           $("body").unbind('keydown.destaque');
@@ -60,9 +61,15 @@
     },
     
     _queue: function(method) {
-      for(var i = 0; i < this.instances.length; i++) {
-         method.call(this, i, arguments[1]);
-       }
+      var self = this;
+      var i = 0;
+      $(self.elements).each(function(index, el){
+        window.setTimeout(function(){
+          console.debug(method, self, index);
+          method.call(self, index);
+          i++;  
+        }, self.options.delay * index);        
+      });
     },
 
     _initializeMouseEvents: function() {
@@ -88,7 +95,7 @@
         e.preventDefault();
 
         var direction = $(this).attr("rel") === "prev" ? "toRight" : "toLeft";
-        self._queue(self.move, direction);
+        self._queue(self.move);
       });
     },
     
@@ -97,9 +104,9 @@
       $("body").bind("keydown.destaqueQueue", function(e) {
         
         if (e.keyCode === 37) {
-          self._queue(self.move, "toRight");
+          self._queue(self.move);
         } else {
-          self._queue(self.move, "toLeft");
+          self._queue(self.move);
         }
       });
     },
@@ -112,9 +119,8 @@
       this.instances[index].resume();
     },
 
-    move: function(index, direction){
-      var self = this;
-      self.instances[index].slideSetAndMove(direction);
+    move: function(index){
+      this.instances[index].slideSetAndMove("toRight");
     }
   }
 
