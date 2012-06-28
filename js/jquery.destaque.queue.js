@@ -62,12 +62,10 @@
     
     _queue: function(method) {
       var self = this;
-      var i = 0;
+      var args = arguments[1];
       $(self.elements).each(function(index, el){
         window.setTimeout(function(){
-          console.debug(method, self, index);
-          method.call(self, index);
-          i++;  
+          method.call(self, index, args);
         }, self.options.delay * index);        
       });
     },
@@ -95,7 +93,7 @@
         e.preventDefault();
 
         var direction = $(this).attr("rel") === "prev" ? "toRight" : "toLeft";
-        self._queue(self.move);
+        self._queue(self.move, direction);
       });
     },
     
@@ -104,9 +102,9 @@
       $("body").bind("keydown.destaqueQueue", function(e) {
         
         if (e.keyCode === 37) {
-          self._queue(self.move);
+          self._queue(self.move, "toRight");
         } else {
-          self._queue(self.move);
+          self._queue(self.move, "toLeft");
         }
       });
     },
@@ -119,8 +117,8 @@
       this.instances[index].resume();
     },
 
-    move: function(index){
-      this.instances[index].slideSetAndMove("toRight");
+    move: function(index, direction){
+      this.instances[index].slideSetAndMove(direction);
     }
   }
 
