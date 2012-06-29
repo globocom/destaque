@@ -9,7 +9,7 @@
     var params = $.extend({}, $.fn.destaque.options, params);
     return new Destaque(this, params);
   };
-  
+
   $.fn.destaque.options = {
     currentSlide: 0,
     slideSpeed: 1000,
@@ -54,6 +54,94 @@
   };
 
   Destaque.prototype = {
+    pause: function() {
+      var params = this.params;
+
+      if (!params.animating) {
+        params.mouseOver = true;
+        clearTimeout(params.autoId);
+        params.onPause(this);
+      }
+    },
+
+    resume: function() {
+      var self = this;
+      var params = this.params;
+
+      if (!params.animating) {
+        params.mouseOver = false;
+
+        var timeout = 0;
+
+        if (params.autoSlideDelay - (new Date().getTime() - params.autoTimeStamp) < 0) {
+          timeout = params.resumeSlideDelay;
+        } else {
+          timeout = params.autoSlideDelay - (new Date().getTime() - params.autoTimeStamp);
+        }
+
+        params.autoId = setTimeout(function() {
+          self._slideElementsOut();
+        }, timeout);
+
+        params.onResume(this);
+      }
+    },
+
+    restart: function() {
+      this.goTo(0);
+    },
+
+    slideSetAndMove: function(direction, targetToClear) {
+      var params = this.params;
+
+      if (!params.animating) {
+        if (direction === "toLeft") {
+          params.slideDirection = "toLeft";
+          params.elementDirection = "fromLeft";
+          this.element.removeClass("right").addClass("left");
+        } else {
+          params.slideDirection = "toRight";
+          params.elementDirection = "fromRight";
+          this.element.removeClass("left").addClass("right");
+        }
+
+        this._setElementPositions(true);
+        this._slideElementsOut(targetToClear);
+      }
+    },
+
+    goTo: function(slideNumber) {
+      var params = this.params;
+      var current = params.currentSlide;
+      var currentSlide = this._currentSlide();
+
+      if (slideNumber < 0 || slideNumber > params.slideSum) {
+        return;
+      }
+
+      if (slideNumber > current || (current == params.slideSum && slideNumber == 0)) {
+        params.currentSlide = slideNumber - 1;
+        this.slideSetAndMove('toLeft', currentSlide);
+
+      } else if (slideNumber < current) {
+        params.currentSlide = slideNumber + 1;
+        this.slideSetAndMove('toRight', currentSlide);
+      }
+    },
+
+    refresh: function(newParams) {
+      this.pause();
+      this.params = $.extend({}, this.params, (newParams || {}));
+
+      this.element.find(this.params.itemSelector + "." + this.params.activeItemClass).removeClass(this.params.activeItemClass);
+      this.element.find(this.params.itemSelector).removeAttr("style").removeClass(this.params.itemLoadedClass).hide();
+      this.element.find(this.params.itemSelector + " " + this.params.itemForegroundElementSelector).removeAttr("style");
+
+      this.params.initialized = false;
+      this._initElements();
+      this.resume();
+    },
+
     _initListeners: function() {
       this._initPaginationListeners();
       this._initMouseListeners();
@@ -171,67 +259,6 @@
       params.autoTimeStamp = new Date().getTime();
     },
 
-    pause: function() {
-      var params = this.params;
-
-      if (!params.animating) {
-        params.mouseOver = true;
-        clearTimeout(params.autoId);
-        params.onPause(this);
-      }
-    },
-
-    resume: function() {
-      var self = this;
-      var params = this.params;
-
-      if (!params.animating) {
-        params.mouseOver = false;
-
-        var timeout = 0;
-
-        if (params.autoSlideDelay - (new Date().getTime() - params.autoTimeStamp) < 0) {
-          timeout = params.resumeSlideDelay;
-        } else {
-          timeout = params.autoSlideDelay - (new Date().getTime() - params.autoTimeStamp);
-        }
-
-        params.autoId = setTimeout(function() {
-          self._slideElementsOut();
-        }, timeout);
-
-        params.onResume(this);
-      }
-    },
-
-    restart: function() {
-      if(this.params.currentSlide !== 1) {
-        for(var i=0; i <= this.params.currentSlide; i++) {
-          this.slideSetAndMove('toRight');
-        }
-      }
-      this.params.currentSlide = 0;
-    },
-
-    slideSetAndMove: function(direction) {
-      var params = this.params;
-
-      if (!params.animating) {
-        if (direction === "toLeft") {
-          params.slideDirection = "toLeft";
-          params.elementDirection = "fromLeft";
-          this.element.removeClass("right").addClass("left");
-        } else {
-          params.slideDirection = "toRight";
-          params.elementDirection = "fromRight";
-          this.element.removeClass("left").addClass("right");
-        }
-
-        this._setElementPositions(true);
-        this._slideElementsOut();
-      }
-    },
-
     _setElementPositions: function(justCalculate) {
       var params = this.params;
       var element, pos = 0;
@@ -253,7 +280,7 @@
       });
     },
 
-    _moveSlide: function() {
+    _moveSlide: function(targetToClear) {
       var self = this;
       var params = this.params;
 
@@ -275,11 +302,19 @@
         next.addClass(params.activeItemClass);
       });
 
-      current.css({zIndex: params.itemDefaultZIndex}).stop().animate({left: outPosition}, params.slideSpeed, params.easingType, function() {
-        $(this).removeClass(params.activeItemClass).hide();
-      });
+      this._clearTarget(current, outPosition);
+      if (targetToClear) {
+        this._clearTarget(targetToClear, outPosition);
+      }
 
       this._updateCurrentSlide();
+    },
+
+    _clearTarget: function(target, outPosition) {
+      var params = this.params;
+      target.css({zIndex: params.itemDefaultZIndex}).stop().animate({left: outPosition}, params.slideSpeed, params.easingType, function() {
+        $(this).removeClass(params.activeItemClass).hide();
+      });
     },
 
     _updatePagers: function(callback) {
@@ -409,7 +444,7 @@
       });
     },
 
-    _slideElementsOut: function() {
+    _slideElementsOut: function(targetToClear) {
       var params = this.params;
 
       if (params.slideSum < 2) {
@@ -429,7 +464,7 @@
         $(this).stop().animate({left: pos}, params.elementSpeed, params.easingType);
       });
 
-      this._moveSlide();
+      this._moveSlide(targetToClear);
       this._updatePagers("onPageUpdate");
     }
   };
