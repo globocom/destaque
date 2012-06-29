@@ -29,10 +29,7 @@
     this._initializeMouseEvents();
     this._initializeControls();
     this._initKeyboardListeners();
-    var self = this;
-    this.elements.each(function(i, el) {
-      self._initializeDestaque(i);
-    });
+    this._queue(this._initializeDestaque);
     
     this.options.onInit.call(this);
   }
@@ -40,28 +37,37 @@
   DestaqueWrapper.prototype = {
     _initializeDestaque: function(index) {
       var self = this;
-      window.setTimeout(function(){
-        var element = self.elements.get(index);
-        self.instances[index] = $(element).destaque({
-          slideMovement: self.options.slideMovement,
-          slideSpeed: self.options.slideSpeed,
-          autoSlideDelay: self.options.autoSlideDelay,
-          elementSpeed: self.options.elementSpeed,
-          stopOnMouseOver: false,
-          easingType: self.options.easingType,
-          itemSelector: self.options.itemSelector,
-          itemForegroundElementSelector: self.options.itemForegroundElementSelector,
-          onPageUpdate: function(slideshow, pageData) {
-            if(self.currentSlide !== pageData.currentSlide){
-              self.options.onPageUpdate(self, slideshow, pageData);
-            }
-            self.currentSlide = pageData.currentSlide;
-          },
-          onInit: function() {
-            $(document).unbind('keydown.destaque');
+      var element = self.elements.get(index);
+      self.instances[index] = $(element).destaque({
+        slideMovement: self.options.slideMovement,
+        slideSpeed: self.options.slideSpeed,
+        autoSlideDelay: self.options.autoSlideDelay,
+        elementSpeed: self.options.elementSpeed,
+        stopOnMouseOver: false,
+        easingType: self.options.easingType,
+        itemSelector: self.options.itemSelector,
+        itemForegroundElementSelector: self.options.itemForegroundElementSelector,
+        onPageUpdate: function(slideshow, pageData) {
+          if(self.currentSlide !== pageData.currentSlide){
+            self.options.onPageUpdate(self, slideshow, pageData);
           }
-        });
-      }, index * self.options.delay);
+          self.currentSlide = pageData.currentSlide;
+          
+        },
+        onInit: function() {
+          $("body").unbind('keydown.destaque');
+        }
+      });
+    },
+    
+    _queue: function(method) {
+      var self = this;
+      var args = arguments[1];
+      $(self.elements).each(function(index, el){
+        window.setTimeout(function(){
+          method.call(self, index, args);
+        }, self.options.delay * index);        
+      });
     },
 
     _initializeMouseEvents: function() {
@@ -71,11 +77,11 @@
         var parent = $(this.elements).parent();
 
         parent.mouseover(function(){
-          self.pause();
+          self._queue(self.pause);
         });
 
         parent.mouseleave(function() {
-          self.resume();
+          self._queue(self.resume);
         });
 
       }
@@ -87,51 +93,32 @@
         e.preventDefault();
 
         var direction = $(this).attr("rel") === "prev" ? "toRight" : "toLeft";
-        for(var i = 0; i < self.instances.length; i++) {
-          self.move(i, direction);
-        }
+        self._queue(self.move, direction);
       });
     },
     
     _initKeyboardListeners: function() {
       var self = this;
-      $(document).bind("keydown.destaqueQueue", function(e) {
+      $("body").bind("keydown.destaqueQueue", function(e) {
+        
         if (e.keyCode === 37) {
-          for(var i = 0; i < self.instances.length; i++){
-            self.move(i, "toRight");
-          }
+          self._queue(self.move, "toRight");
         } else {
-          for(var i = 0; i < self.instances.length; i++){
-            self.move(i, "toLeft");
-          }
+          self._queue(self.move, "toLeft");
         }
       });
     },
 
-    pause: function() {
-      for(var i = 0; i < this.instances.length; i++) {
-        this.instances[i].pause();
-      }
+    pause: function(index) {
+      this.instances[index].pause();
     },
 
-    resume: function() {
-      for(var i = 0; i < this.instances.length; i++) {
-        this._resumeFor(i);
-      }
-    },
-
-    _resumeFor: function(index) {
-      var self = this;
-      window.setTimeout(function(){
-        self.instances[index].resume();
-      }, index * this.options.delay)
+    resume: function(index) {
+      this.instances[index].resume();
     },
 
     move: function(index, direction){
-      var self = this;
-      window.setTimeout(function(){
-        self.instances[index].slideSetAndMove(direction);
-      }, index * self.options.delay);
+      this.instances[index].slideSetAndMove(direction);
     }
   }
 

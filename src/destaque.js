@@ -9,7 +9,7 @@
     var params = $.extend({}, $.fn.destaque.options, params);
     return new Destaque(this, params);
   };
-
+  
   $.fn.destaque.options = {
     currentSlide: 0,
     slideSpeed: 1000,
@@ -109,8 +109,7 @@
 
     _initKeyboardListeners: function() {
       var self = this;
-
-      $(document).bind("keydown.destaque", function(e) {
+      $("body").bind("keydown.destaque", function(e) {
         if (e.keyCode === 37) {
           self.slideSetAndMove("toRight");
         } else {
