@@ -102,6 +102,79 @@ next slide.
 * **refresh(paramsToOverride)**: Overrides some params and recalculates. Keeps the current page. Used for adaptative layouts.
 * **slideSetAndMove(direction)**: Changes the slide direction. Does not work if the slide is animating. The possible values are "toLeft" or "toRight".
 
+# Destaque Queue
+
+Makes jquery.destaque work enhanced for more than one instance in a page
+
+Refer to the [jQuery Destaque website](http://globocom.github.com/destaque/) for examples.
+
+## Usage
+
+````javascript
+$('.triple-slides').destaquesQueue({
+ delay: 250,
+ itemSelector: ".item-triple",
+ itemForegroundElementSelector: ".foreground-triple .element",
+ controlsSelector: "#slide-pagination a"
+});
+````
+
+````html
+<div id="multiple-slide-container" class="slides">
+  <h2>Multiple slides example:</h2>
+  <div class="triple-slides">
+    <div class="item-triple">
+      <div class="foreground-triple">
+        <div class="element">Text 1</div>
+      </div>
+    </div>
+    <!-- the same markup for other itens -->
+  </div>
+  <div class="triple-slides">
+    <div class="item-triple">
+      <div class="foreground-triple">
+        <div class="element">Text 2</div>
+      </div>
+    </div>
+    <!-- the same markup for other itens -->
+  </div>
+  <div class="triple-slides">
+    <div class="item-triple">
+      <div class="foreground-triple">
+        <div class="element">Text 3</div>
+      </div>
+    </div>
+    <!-- the same markup for other itens -->
+  </div>
+</div>
+
+<p id="slide-pagination">
+  <a href="#" rel="prev">Previous</a> - <a href="#" rel="next">Next</a>
+</p>
+````
+
+### Plugin Initialization
+
+#### Callbacks
+
+Same as destaque
+
+#### Options
+
+Same as destaque with:
+
+* **delay** (default: 250): Delay between destaques.
+
+#### Methods
+
+Same as destaque with:
+
+* **pauseFor(index)**
+* **resumeFor(index)**
+* **goToFor(index, slideNumber)**
+* **refreshFor(index, paramsToOverride)**
+* **slideSetAndMoveFor(index, direction)**
+
 ## Authors
 
 * [Daniel Martins](https://github.com/danielfm)
