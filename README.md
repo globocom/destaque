@@ -119,33 +119,32 @@ $('.triple-slides').destaquesQueue({
 });
 ````
 
+Now the HTML:
+
 ````html
-<div id="multiple-slide-container" class="slides">
-  <h2>Multiple slides example:</h2>
-  <div class="triple-slides">
-    <div class="item-triple">
-      <div class="foreground-triple">
-        <div class="element">Text 1</div>
-      </div>
+<div class="triple-slides">
+  <div class="item-triple">
+    <div class="foreground-triple">
+      <div class="element">Text 1</div>
     </div>
-    <!-- the same markup for other itens -->
   </div>
-  <div class="triple-slides">
-    <div class="item-triple">
-      <div class="foreground-triple">
-        <div class="element">Text 2</div>
-      </div>
+  <!-- the same markup for other itens -->
+</div>
+<div class="triple-slides">
+  <div class="item-triple">
+    <div class="foreground-triple">
+      <div class="element">Text 2</div>
     </div>
-    <!-- the same markup for other itens -->
   </div>
-  <div class="triple-slides">
-    <div class="item-triple">
-      <div class="foreground-triple">
-        <div class="element">Text 3</div>
-      </div>
+  <!-- the same markup for other itens -->
+</div>
+<div class="triple-slides">
+  <div class="item-triple">
+    <div class="foreground-triple">
+      <div class="element">Text 3</div>
     </div>
-    <!-- the same markup for other itens -->
   </div>
+  <!-- the same markup for other itens -->
 </div>
 
 <p id="slide-pagination">
