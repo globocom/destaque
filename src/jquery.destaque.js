@@ -4,7 +4,8 @@
  * version: 0.1.0
  */
 
-(function ($, window, document, undefined) {
+;(function ($, window, document, undefined) {
+
   $.fn.destaque = function(params) {
     var params = $.extend({}, $.fn.destaque.options, params);
     return new Destaque(this, params);
@@ -59,7 +60,7 @@
 
       if (!params.animating) {
         params.mouseOver = true;
-        clearTimeout(params.autoId);
+        window.clearTimeout(params.autoId);
         params.onPause(this);
       }
     },
@@ -79,7 +80,7 @@
           timeout = params.autoSlideDelay - (new Date().getTime() - params.autoTimeStamp);
         }
 
-        params.autoId = setTimeout(function() {
+        params.autoId = window.setTimeout(function() {
           self._slideElementsOut();
         }, timeout);
 
@@ -417,7 +418,7 @@
             $(this).css({left: $(this).data("xPos"), top: $(this).data("yPos")});
 
             if (elementNum - 1 === i && !params.mouseOver && params.slideSum > 1) {
-              params.autoId = setTimeout(function() {
+              params.autoId = window.setTimeout(function() {
                 self._slideElementsOut();
               }, params.autoSlideDelay);
 
@@ -430,7 +431,7 @@
             $(this).animate({left: $(this).data("xPos")}, params.elementSpeed, params.easingType, function() {
               if (elementNum - 1 === i && params.slideSum > 1) {
                 if (!params.mouseOver) {
-                  params.autoId = setTimeout(function() {
+                  params.autoId = window.setTimeout(function() {
                     self._slideElementsOut();
                   }, params.autoSlideDelay);
                 }
@@ -456,7 +457,7 @@
       };
 
       params.animating = true;
-      clearTimeout(params.autoId);
+      window.clearTimeout(params.autoId);
 
       this.element.find(params.itemSelector + " " + params.itemForegroundElementSelector).removeAttr("style");
       this.element.find(params.itemSelector + "." + params.activeItemClass + " " + params.itemForegroundElementSelector).each(function() {
@@ -468,4 +469,5 @@
       this._updatePagers("onPageUpdate");
     }
   };
-})(jQuery, window);
+
+})(jQuery, window, document, undefined);
