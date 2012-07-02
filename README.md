@@ -184,4 +184,4 @@ Same as destaque with:
 
 ## License
 
-Copyright (c) 2012 Globo.com - Webmedia. See COPYING for more details.
+Copyright (c) 2012 Globo.com - Webmedia. See [COPYING](https://github.com/globocom/destaque/blob/master/COPYING) for more details.
