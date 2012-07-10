@@ -1,7 +1,7 @@
 /*!
  * jQuery Destaque Queue - Make jquery.destaque work enhanced for more than one instance in a page
  * https://github.com/globocom/destaque
- * version: 0.1.0
+ * version: 0.2.0
  */
 
 ;(function ($, window, document, undefined) {
@@ -22,6 +22,7 @@
     easingType: "easeInOutExpo",
     itemSelector: ".item-triple",
     itemForegroundElementSelector: ".foreground-triple .element",
+    containerSelector: "div",
     onPageUpdate: function(slideshow, pageData){},
     onInit: function() {}
   };
@@ -36,6 +37,7 @@
     this._initializeMouseEvents();
     this._initializeControls();
     this._initKeyboardListeners();
+    this._initMobileListeners();
     this._queue(this._initializeDestaque);
 
     this.options.onInit.call(this);
@@ -84,8 +86,8 @@
 
     _initializeDestaque: function(index) {
       var self = this;
-      var element = self.elements.get(index);
-      self.instances[index] = $(element).destaque({
+      var element = $(self.elements.get(index));
+      self.instances[index] = element.destaque({
         slideMovement: self.options.slideMovement,
         slideSpeed: self.options.slideSpeed,
         autoSlideDelay: self.options.autoSlideDelay,
@@ -105,6 +107,9 @@
 
         onInit: function() {
           $("body").unbind('keydown.destaque');
+
+          element.unbind("swipeleft.destaque");
+          element.unbind("swiperight.destaque");
         }
       });
     },
@@ -121,7 +126,10 @@
               window.oRequestAnimationFrame      || 
               window.msRequestAnimationFrame     || 
               function( callback ){
-                window.setTimeout(callback, self.options.delay*index);
+                window.setTimeout(function() {
+                  var timestamp = window.mozAnimationStartTime || new Date().getTime();
+                  callback(timestamp);
+                }, self.options.delay*index);
               };
       })();
      
@@ -133,7 +141,7 @@
           if(index < self.elements.length) {
             method.call(self, index, args);
             requestAnimFrame(step);
-            index++;            
+            index++;
           }
         }  
       }  
@@ -169,13 +177,22 @@
     _initKeyboardListeners: function() {
       var self = this;
       $("body").bind("keydown.destaqueQueue", function(e) {
-
         if (e.keyCode === 37) {
           self._queue(self.slideSetAndMoveFor, "toRight");
-        } else {
+        } else if (e.keyCode === 39) {
           self._queue(self.slideSetAndMoveFor, "toLeft");
         }
+      });
+    },
 
+    _initMobileListeners: function() {
+      var self = this;
+      var container = $(self.elements.get(0)).parents(self.options.containerSelector);
+
+      container.bind("swipeleft.destaqueQueue", function() {
+        self._queue(self.slideSetAndMoveFor, "toLeft");
+      }).bind("swiperight.destaqueQueue", function() {
+        self._queue(self.slideSetAndMoveFor, "toRight");
       });
     }
   };
