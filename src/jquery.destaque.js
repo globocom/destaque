@@ -1,7 +1,7 @@
 /*!
  * jQuery Destaque - a simple slideshow plugin with built-in parallax effect
  * https://github.com/globocom/destaque
- * version: 0.1.0
+ * version: 0.2.0
  */
 
 ;(function ($, window, document, undefined) {
@@ -172,7 +172,7 @@
 
       this.element.bind("swipeleft.destaque", function(e) {
         self.slideSetAndMove("toLeft");
-       });
+      });
 
       this.element.bind("swiperight.destaque", function (e) {
         self.slideSetAndMove("toRight");
