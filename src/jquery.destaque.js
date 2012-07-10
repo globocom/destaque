@@ -246,11 +246,10 @@
       this.element.find(params.itemForegroundElementSelector).each(function (idx, e) {
         var e = $(this);
 
-        var initialX = parseInt(e.css("left"), 10) + (self.element.width() - params.baseSize) / 2;
-        var initialY = parseInt(e.css("top"), 10);
+        var initialX = parseInt(e.css("left"), 10) || 0;
 
-        e.css({top: initialY, left: params.baseSize});
-        e.data("xPos", initialX).data("yPos", initialY).data("slidePos", 9999);
+        e.css({left: initialX});
+        e.data("xPos", initialX).data("slidePos", 9999);
       });
 
       this._loadSlide();
@@ -415,7 +414,7 @@
       current.each(function() {
         $(this).find(params.itemForegroundElementSelector).each(function(i) {
           if (!params.initialized) {
-            $(this).css({left: $(this).data("xPos"), top: $(this).data("yPos")});
+            $(this).css({left: $(this).data("xPos")});
 
             if (elementNum - 1 === i && !params.mouseOver && params.slideSum > 1) {
               params.autoId = window.setTimeout(function() {
@@ -427,7 +426,7 @@
           } else {
             params.animating = true;
 
-            $(this).stop().css({left: $(this).data("slidePos"), top: $(this).data("yPos")});
+            $(this).stop().css({left: $(this).data("slidePos")});
             $(this).animate({left: $(this).data("xPos")}, params.elementSpeed, params.easingType, function() {
               if (elementNum - 1 === i && params.slideSum > 1) {
                 if (!params.mouseOver) {
