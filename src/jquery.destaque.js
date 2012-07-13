@@ -55,6 +55,13 @@
   };
 
   Destaque.prototype = {
+    _setTimeout: function(fn, timeout) {
+      var params = this.params;
+
+      window.clearTimeout(params.autoId);
+      params.autoId = window.setTimeout(fn, timeout);
+    },
+
     pause: function() {
       var params = this.params;
 
@@ -80,7 +87,7 @@
           timeout = params.autoSlideDelay - (new Date().getTime() - params.autoTimeStamp);
         }
 
-        params.autoId = window.setTimeout(function() {
+        self._setTimeout(function() {
           self._slideElementsOut();
         }, timeout);
 
@@ -172,7 +179,7 @@
 
       this.element.bind("swipeleft.destaque", function(e) {
         self.slideSetAndMove("toLeft");
-      });
+       });
 
       this.element.bind("swiperight.destaque", function (e) {
         self.slideSetAndMove("toRight");
@@ -201,10 +208,8 @@
       $("body").bind("keydown.destaque", function(e) {
         if (e.keyCode === 37) {
           self.slideSetAndMove("toRight");
-        } else {
-          if (e.keyCode === 39) {
-            self.slideSetAndMove("toLeft");
-          }
+        } else if (e.keyCode === 39) {
+          self.slideSetAndMove("toLeft");
         }
       });
     },
@@ -417,7 +422,7 @@
             $(this).css({left: $(this).data("xPos")});
 
             if (elementNum - 1 === i && !params.mouseOver && params.slideSum > 1) {
-              params.autoId = window.setTimeout(function() {
+              self._setTimeout(function() {
                 self._slideElementsOut();
               }, params.autoSlideDelay);
 
@@ -430,7 +435,7 @@
             $(this).animate({left: $(this).data("xPos")}, params.elementSpeed, params.easingType, function() {
               if (elementNum - 1 === i && params.slideSum > 1) {
                 if (!params.mouseOver) {
-                  params.autoId = window.setTimeout(function() {
+                  self._setTimeout(function() {
                     self._slideElementsOut();
                   }, params.autoSlideDelay);
                 }
