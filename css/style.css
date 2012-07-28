@@ -22,60 +22,12 @@ a, a:hover {
   height: 540px;
 }
 
-.item.first {
-  background: url(../img/aline.jpg) no-repeat;
+.item .background img {
+  max-width: 960px; /* to avoid max-width: 100% of Twitter Bootstrap */
 }
 
-.item.second {
-  background: url(../img/monique.jpg) no-repeat;
-}
-
-.item.third {
-  background: url(../img/luciane.jpg) no-repeat;
-}
-
-.item.fourth {
-  background: url(../img/adriana.jpg) no-repeat;
-}
-
-.item.fifth {
-  background: url(../img/lorena.jpg) no-repeat;
-}
-
-.item-triple.triple-first-one {
-  background: url(../img/michelle.jpg) no-repeat;
-}
-
-.item-triple.triple-first-two {
-  background: url(../img/milena.jpg) no-repeat;
-}
-
-.item-triple.triple-first-tree {
-  background: url(../img/wanessa.jpg) no-repeat;
-}
-
-.item-triple.triple-second-one {
-  background: url(../img/nicole.jpg) no-repeat;
-}
-
-.item-triple.triple-second-two {
-  background: url(../img/carol.jpg) no-repeat;
-}
-
-.item-triple.triple-second-tree {
-  background: url(../img/alessandra.jpg) no-repeat;
-}
-
-.item-triple.triple-third-one {
-  background: url(../img/fabiana.jpg) no-repeat;
-}
-
-.item-triple.triple-third-two {
-  background: url(../img/outra-monique.jpg) no-repeat;
-}
-
-.item-triple.triple-third-tree {
-  background: url(../img/rosana.jpg) no-repeat;
+.item-triple .background img {
+  max-width: 320px; /* to avoid max-width: 100% of Twitter Bootstrap */
 }
 
 .foreground .element, .foreground-triple .element {
@@ -95,7 +47,7 @@ a, a:hover {
   background-position: 0 0;
 }
 
-.foreground .overlay, .foreground-triple .overlay {
+.background .overlay {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -123,10 +75,6 @@ a, a:hover {
 .ui-loader {
   display: none;
 }
-
-/*
- * Triple slides
- */
 
 #multiple-slide-container .triple-slides {
   width: 320px;
