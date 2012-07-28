@@ -15,16 +15,17 @@
     currentSlide: 0,
     slideSpeed: 1000,
     slideMovement: 150,
+    easingType: "easeInOutExpo",
     slideDirection: "toLeft",
     elementSpeed: 1000,
     autoSlideDelay: 3000,
     resumeSlideDelay: 250,
     stopOnMouseOver: true,
-    easingType: "easeInOutExpo",
     itemDefaultZIndex: 10,
     itemSelector: "div.item",
     itemLoadedClass: "loaded",
     activeItemClass: "active",
+    itemBackgroundSelector: "img.background",
     itemForegroundElementSelector: ".foreground img",
 
     // Callbacks
@@ -286,39 +287,60 @@
     },
 
     _moveSlide: function(targetToClear) {
-      var self = this;
       var params = this.params;
-
-      var initialPosition = 0;
-      var outPosition = 0;
       var current = this._currentSlide();
-      var next = this._nextSlide();
+
       params.animating = true;
 
-      if (params.slideDirection === "toLeft") {
-        outPosition = -params.slideMovement;
-        next.css({left: params.baseSize, zIndex: params.itemDefaultZIndex + 1}).show();
-      } else {
-        outPosition = params.slideMovement;
-        next.css({left: -params.baseSize, zIndex: params.itemDefaultZIndex + 1}).show();
-      }
+      this._moveNextSlideIn();
+      this._moveSlideOut(current);
 
-      next.stop().animate({left: initialPosition}, params.slideSpeed, params.easingType, function() {
-        next.addClass(params.activeItemClass);
-      });
-
-      this._clearTarget(current, outPosition);
       if (targetToClear) {
-        this._clearTarget(targetToClear, outPosition);
+        this._moveSlideOut(targetToClear);
       }
 
       this._updateCurrentSlide();
     },
 
-    _clearTarget: function(target, outPosition) {
+    _moveNextSlideIn: function() {
       var params = this.params;
-      target.css({zIndex: params.itemDefaultZIndex}).stop().animate({left: outPosition}, params.slideSpeed, params.easingType, function() {
-        $(this).removeClass(params.activeItemClass).hide();
+      var inAnimation = {};
+      var inCss = {};
+
+      var next = this._nextSlide();
+      var nextBackground = next.find(params.itemBackgroundSelector);
+
+      if (params.slideDirection === "toLeft") {
+        inCss = {left: params.slideMovement, zIndex: params.itemDefaultZIndex, width: params.baseSize};
+        inAnimation = {left: 0};
+      } else {
+        inCss = {left: -params.slideMovement, zIndex: params.itemDefaultZIndex + 1, width: params.slideMovement};
+        inAnimation = {left: 0, width: params.baseSize};
+
+        nextBackground.css({left: -params.slideMovement}).stop().animate({left: 0}, params.easingType);
+      }
+
+      next.css(inCss).show().stop().animate(inAnimation, params.slideSpeed, params.easingType, function() {
+        next.addClass(params.activeItemClass);
+      });
+    },
+
+    _moveSlideOut: function(target) {
+      var params = this.params;
+      var outAnimation = {};
+      var outCss = {};
+
+      if (params.slideDirection === "toLeft") {
+        outAnimation = {left: -params.slideMovement, width: params.slideMovement};
+        outCss = {zIndex: params.itemDefaultZIndex + 1};
+      } else {
+        outAnimation = {left: params.slideMovement}
+        outCss = {zIndex: params.itemDefaultZIndex};
+      }
+
+      target.css(outCss).stop().animate(outAnimation, params.slideSpeed, params.easingType, function() {
+          $(this).removeClass(params.activeItemClass).hide();
+          target.find(params.itemBackgroundSelector).css({left: 0});
       });
     },
 
