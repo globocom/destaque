@@ -27,6 +27,7 @@ Refer to the [jQuery Destaque website](http://globocom.github.com/destaque/) for
 
 $("#slide-container").destaque({
   itemSelector: ".item",
+  itemBackgroundSelector: ".background",
   itemForegroundElementSelector: ".foreground .element",
   controlsSelector: "#slide-pagination a"
 });
@@ -37,6 +38,10 @@ Now the HTML:
 ````html
 <div id="slide-container">
   <div class="item">
+    <div class="background">
+      <img src="background-img.jpg"/>
+    </div>
+
     <div class="foreground">
       <div class="element">Text 1</div>
       <div class="element">Text 2</div>
@@ -45,6 +50,10 @@ Now the HTML:
   </div>
 
   <div class="item">
+    <div class="background">
+      <img src="background-img.jpg"/>
+    </div>
+
     <div class="foreground">
       <div class="element">Text 1</div>
       <div class="element">Text 2</div>
@@ -90,6 +99,7 @@ next slide.
 * **itemSelector** (default: "div.item"): CSS selector used to find each slide.
 * **itemLoadedClass** (default: "loaded"): CSS calss added right after a slide is loaded.
 * **activeItemClass** (default: "active"): CSS class added to the active slide.
+* **itemBackgroundSelector** (default: ".background img"): CSS selector used to find the background element of a slide.
 * **itemForegroundElementSelector** (default: ".foreground img"): CSS selector used to find each foreground element withing a slide.
 * **controlsSelector** (default: undefined): CSS selector used to find the pagination links.
 
@@ -112,10 +122,11 @@ Refer to the [jQuery Destaque website](http://globocom.github.com/destaque/) for
 
 ````javascript
 $('.triple-slides').destaquesQueue({
- delay: 250,
- itemSelector: ".item-triple",
- itemForegroundElementSelector: ".foreground-triple .element",
- controlsSelector: "#slide-pagination a"
+  delay: 250,
+  itemSelector: ".item-triple",
+  itemBackgroundSelector: ".background-triple",
+  itemForegroundElementSelector: ".foreground-triple .element",
+  controlsSelector: "#slide-pagination a"
 });
 ````
 
@@ -124,22 +135,28 @@ Now the HTML:
 ````html
 <div class="triple-slides">
   <div class="item-triple">
+    <div class="background-triple"></div>
+
     <div class="foreground-triple">
       <div class="element">Text 1</div>
     </div>
   </div>
   <!-- the same markup for other itens -->
 </div>
+
 <div class="triple-slides">
   <div class="item-triple">
+    <div class="background-triple"></div>
     <div class="foreground-triple">
       <div class="element">Text 2</div>
     </div>
   </div>
   <!-- the same markup for other itens -->
 </div>
+
 <div class="triple-slides">
   <div class="item-triple">
+    <div class="background-triple"></div>
     <div class="foreground-triple">
       <div class="element">Text 3</div>
     </div>
