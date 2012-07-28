@@ -12,6 +12,8 @@ $(function () {
 
   $('.triple-slides').destaquesQueue({
     slideMovement: 40,
-    delay: 250
+    delay: 250,
+    easingType: "easeInOutQuart",
+    itemBackgroundSelector: ".background"
   });
 });
