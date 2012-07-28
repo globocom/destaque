@@ -95,6 +95,7 @@
         stopOnMouseOver: false,
         easingType: self.options.easingType,
         itemSelector: self.options.itemSelector,
+        itemBackgroundSelector: self.options.itemBackroundSelector,
         itemForegroundElementSelector: self.options.itemForegroundElementSelector,
 
         onPageUpdate: function(slideshow, pageData) {
