@@ -1,7 +1,7 @@
 /*!
  * jQuery Destaque Queue - Make jquery.destaque work enhanced for more than one instance in a page
  * https://github.com/globocom/destaque
- * version: 0.2.0
+ * version: 0.3.0
  */
 
 ;(function ($, window, document, undefined) {
@@ -118,35 +118,41 @@
     _queue: function(method) {
       var self = this;
       var args = arguments[1];
-      var start = window.mozAnimationStartTime || new Date().getTime();  
       var index = 0;
+      var start = window['performance'] ? performance.now() : new Date().getTime();
       window.requestAnimFrame = (function(){
-      return  window.requestAnimationFrame       || 
-              window.webkitRequestAnimationFrame || 
-              window.mozRequestAnimationFrame    || 
-              window.oRequestAnimationFrame      || 
-              window.msRequestAnimationFrame     || 
+      return  window.requestAnimationFrame       ||
+              window.webkitRequestAnimationFrame ||
+              window.mozRequestAnimationFrame    ||
+              window.oRequestAnimationFrame      ||
+              window.msRequestAnimationFrame     ||
               function( callback ){
                 window.setTimeout(function() {
-                  var timestamp = window.mozAnimationStartTime || new Date().getTime();
+                  var timestamp = new Date().getTime();
                   callback(timestamp);
                 }, self.options.delay*index);
               };
       })();
-     
-      function step(timestamp) {  
-        var progress = timestamp - start;  
-        if (progress < self.options.delay*index) {  
-          requestAnimFrame(step);  
+
+      function step(timestamp) {
+        var progress = timestamp - start;
+
+        // http://updates.html5rocks.com/2012/05/requestAnimationFrame-API-now-with-sub-millisecond-precision
+        if (timestamp >= 1e12) {
+          progress -= window['performance'] ? performance.timing.navigationStart : 0;
+        }
+
+        if (progress < self.options.delay*index) {
+          requestAnimFrame(step);
         } else {
           if(index < self.elements.length) {
             method.call(self, index, args);
             requestAnimFrame(step);
             index++;
           }
-        }  
-      }  
-      requestAnimFrame(step);  
+        }
+      }
+      requestAnimFrame(step);
     },
     _initializeMouseEvents: function() {
       if (this.options.stopOnMouseOver) {
