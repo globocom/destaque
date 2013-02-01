@@ -128,7 +128,7 @@
         return;
       }
 
-      if (slideNumber > current || (current == params.slideSum && slideNumber == 0)) {
+      if (slideNumber > current || (current === params.slideSum && slideNumber === 0)) {
         params.currentSlide = slideNumber - 1;
         this.slideSetAndMove('toLeft', currentSlide);
 
