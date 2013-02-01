@@ -334,7 +334,7 @@
         outAnimation = {left: -params.slideMovement, width: params.slideMovement};
         outCss = {zIndex: params.itemDefaultZIndex + 1};
       } else {
-        outAnimation = {left: params.slideMovement}
+        outAnimation = {left: params.slideMovement};
         outCss = {zIndex: params.itemDefaultZIndex};
       }
 
@@ -480,7 +480,7 @@
 
       if (this._updatePagers("beforePageUpdate") === false) {
         return;
-      };
+      }
 
       params.animating = true;
       window.clearTimeout(params.autoId);
