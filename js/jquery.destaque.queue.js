@@ -115,11 +115,15 @@
       });
     },
 
+    _hasPerformanceAPISupport: function() {
+      return window['performance'] && !!performance.now;
+    },
+
     _queue: function(method) {
       var self = this;
       var args = arguments[1];
       var index = 0;
-      var start = window['performance'] && !!performance.now ? performance.now() : new Date().getTime();
+      var start = this._hasPerformanceAPISupport() ? performance.now() : new Date().getTime();
       window.requestAnimFrame = (function(){
       return  window.requestAnimationFrame       ||
               window.webkitRequestAnimationFrame ||
@@ -139,7 +143,7 @@
 
         // http://updates.html5rocks.com/2012/05/requestAnimationFrame-API-now-with-sub-millisecond-precision
         if (timestamp >= 1e12) {
-          progress -= window['performance'] ? performance.timing.navigationStart : 0;
+          progress -= self._hasPerformanceAPISupport() ? performance.timing.navigationStart : 0;
         }
 
         if (progress < self.options.delay*index) {
