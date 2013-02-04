@@ -1,7 +1,7 @@
 /*!
  * jQuery Destaque Queue - Make jquery.destaque work enhanced for more than one instance in a page
  * https://github.com/globocom/destaque
- * version: 0.3.0
+ * version: 0.3.x
  */
 
 ;(function ($, window, document, undefined) {
@@ -119,7 +119,7 @@
       var self = this;
       var args = arguments[1];
       var index = 0;
-      var start = window['performance'] ? performance.now() : new Date().getTime();
+      var start = window['performance'] && !!performance.now ? performance.now() : new Date().getTime();
       window.requestAnimFrame = (function(){
       return  window.requestAnimationFrame       ||
               window.webkitRequestAnimationFrame ||
