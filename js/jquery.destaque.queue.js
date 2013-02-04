@@ -1,7 +1,7 @@
 /*!
  * jQuery Destaque Queue - Make jquery.destaque work enhanced for more than one instance in a page
  * https://github.com/globocom/destaque
- * version: 0.3.x
+ * version: 0.3.1
  */
 
 ;(function ($, window, document, undefined) {

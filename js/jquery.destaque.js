@@ -1,7 +1,7 @@
 /*!
  * jQuery Destaque - a simple slideshow plugin with built-in parallax effect
  * https://github.com/globocom/destaque
- * version: 0.3.0
+ * version: 0.3.1
  */
 
 ;(function ($, window, document, undefined) {
