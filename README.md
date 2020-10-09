@@ -97,7 +97,7 @@ next slide.
 * **easingType** (default: "easeInOutExpo"): Easing type used in slide and foreground elements transitions.
 * **itemDefaultZIndex** (default: 10): Z-index assigned to each slide.
 * **itemSelector** (default: "div.item"): CSS selector used to find each slide.
-* **itemLoadedClass** (default: "loaded"): CSS calss added right after a slide is loaded.
+* **itemLoadedClass** (default: "loaded"): CSS class added right after a slide is loaded.
 * **activeItemClass** (default: "active"): CSS class added to the active slide.
 * **itemBackgroundSelector** (default: ".background img"): CSS selector used to find the background element of a slide.
 * **itemForegroundElementSelector** (default: ".foreground img"): CSS selector used to find each foreground element withing a slide.
@@ -201,3 +201,5 @@ Same as destaque with:
 ## License
 
 Copyright (c) 2012 Globo.com - Webmedia. See [COPYING](https://github.com/globocom/destaque/blob/master/COPYING) for more details.
+
+*This article can also be read in [Brazilian Portuguese](README-pt-BR.md).*
